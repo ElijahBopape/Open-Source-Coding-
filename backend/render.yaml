@@ -1,0 +1,13 @@
+# Render "Blueprint" - lets Render auto-configure this service from this repo.
+# See https://render.com/docs/blueprint-spec (Render, 2026).
+services:
+  - type: web
+    name: student-assistant-api
+    runtime: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20.11.0

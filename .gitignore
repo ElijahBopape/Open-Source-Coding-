@@ -1,0 +1,32 @@
+### Android / Gradle ###
+*.iml
+.gradle/
+/local.properties
+/.idea/
+.DS_Store
+build/
+/captures/
+.externalNativeBuild/
+.cxx/
+local.properties
+*.apk
+*.aab
+
+# Uncomment to keep your Firebase config out of git; committing the real
+# google-services.json is fine for this assignment (Firebase API keys are
+# not secret - see https://firebase.google.com/docs/projects/api-keys),
+# but if you'd rather not, ignore it here and share it with your lecturer
+# separately.
+# app/google-services.json
+
+### Node / backend ###
+backend/node_modules/
+backend/*.db
+backend/.env
+
+### Windows ###
+desktop.ini
+Thumbs.db
+
+### Assignment brief / Part 1 PDFs (submitted separately, not part of this code repo) ###
+/*.pdf
