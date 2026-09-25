@@ -1,9 +1,48 @@
 # Student Assistant
 
 **OPSC6312 (Open Source Coding, Intermediate) — Portfolio of Evidence, Part 2: App Prototype**
-Student: ME Bopape (ST10445847)
+Student: Elijah Bopape (ST10445847)
+Repository: <https://github.com/ElijahBopape/Open-Source-Coding->
 
 ![Android CI](https://github.com/ElijahBopape/Open-Source-Coding-/actions/workflows/android-ci.yml/badge.svg)
+
+## For the marker — quick start
+
+The Firebase config committed in this repo (`app/google-services.json`) is the
+**real** project config, not a placeholder, so the app builds and runs as-is —
+no Firebase account needed to mark this.
+
+1. Clone the repo and open the root folder in Android Studio (this repo root
+   *is* the Gradle project). Let it sync.
+2. **Start the REST API locally** (needed either way — see note below):
+   ```bash
+   cd backend
+   npm install
+   npm start
+   ```
+   Leave that terminal running. It listens on `http://localhost:3000`.
+3. Run the app on an **emulator** (not a physical device, unless you also
+   change the API URL — see below) via the green Run button in Android
+   Studio, or `./gradlew installDebug`.
+4. Register a new account, then use Modules / Tasks / Timetable / Settings as
+   normal.
+
+> **Why localhost:** the app is currently built to point at
+> `https://student-assistant-api.onrender.com/`, a Render deployment that
+> could not be confirmed live before this submission was finalised (time
+> constraints). Android emulators reach your machine's `localhost` via the
+> special address `10.0.2.2`, and `app/build.gradle`'s **debug** build type
+> already targets `http://10.0.2.2:3000/` for exactly this reason — so a
+> **debug** build run on the emulator will talk to the API you started in
+> step 2 with no further changes needed. A **release** build, or running on a
+> physical device, would need `API_BASE_URL` pointed at a REST API address
+> reachable from that device instead (a deployed URL, or your machine's LAN
+> IP with the phone on the same Wi-Fi).
+
+No demonstration video is included with this submission — I ran out of time
+to record and deploy the backend publicly before the deadline. Everything
+above has been built and run locally to confirm it works; see
+[`AI_USAGE.md`](AI_USAGE.md) for what AI assistance was used to get here.
 
 Student Assistant is an academic organiser for tertiary students. It brings modules,
 a class timetable and prioritised assignments/tasks into one place, so a student can

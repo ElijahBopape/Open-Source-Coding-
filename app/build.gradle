@@ -28,10 +28,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-            // Uses the same deployed API by default. To point at a server running on
-            // your own machine instead, set this to "http://10.0.2.2:3000/" - the
-            // Android emulator's alias for the host machine's localhost.
-            buildConfigField "String", "API_BASE_URL", "\"https://student-assistant-api.onrender.com/\""
+            // 10.0.2.2 is the Android emulator's alias for the host machine's
+            // localhost. Debug builds talk to the backend run locally with
+            // `npm start` in /backend (see README) so the app works out of the
+            // box without needing a live Render deployment.
+            buildConfigField "String", "API_BASE_URL", "\"http://10.0.2.2:3000/\""
         }
     }
 

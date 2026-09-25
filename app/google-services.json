@@ -1,26 +1,21 @@
 {
   "project_info": {
-    "project_number": "000000000000",
-    "project_id": "REPLACE-WITH-YOUR-FIREBASE-PROJECT-ID",
-    "storage_bucket": "REPLACE-WITH-YOUR-FIREBASE-PROJECT-ID.appspot.com"
+    "project_number": "908927152509",
+    "project_id": "student-assistant-bc979",
+    "storage_bucket": "student-assistant-bc979.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:000000000000:android:0000000000000000000000",
+        "mobilesdk_app_id": "1:908927152509:android:90e6d99580b2b60ae79c14",
         "android_client_info": {
           "package_name": "com.bopape.studentassistant"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "000000000000-placeholder.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "REPLACE_WITH_YOUR_FIREBASE_API_KEY"
+          "current_key": "AIzaSyB3JIMXuTqw283NGpOmN8QhxxK9nfQy9Ok"
         }
       ],
       "services": {
