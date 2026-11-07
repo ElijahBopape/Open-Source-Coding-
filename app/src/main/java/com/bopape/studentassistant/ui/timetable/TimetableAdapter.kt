@@ -45,7 +45,7 @@ class TimetableAdapter(
             binding.textEndTime.text = entry.endTime
 
             val module = modulesById[entry.moduleId]
-            binding.textClassModule.text = module?.name ?: "Unknown module"
+            binding.textClassModule.text = module?.name ?: binding.root.context.getString(com.bopape.studentassistant.R.string.unknown_module)
             binding.textClassVenue.text = listOfNotNull(
                 entry.venue.ifBlank { null },
                 module?.lecturer?.ifBlank { null }

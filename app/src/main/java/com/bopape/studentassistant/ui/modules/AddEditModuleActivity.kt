@@ -11,6 +11,7 @@ import com.bopape.studentassistant.data.model.Module
 import com.bopape.studentassistant.data.repository.ModuleRepository
 import com.bopape.studentassistant.databinding.ActivityAddEditModuleBinding
 import com.bopape.studentassistant.util.ApiResult
+import com.bopape.studentassistant.util.applySystemBarInsets
 import kotlinx.coroutines.launch
 
 /** Creates a new module, or edits an existing one when launched with EXTRA_MODULE_ID. */
@@ -25,6 +26,7 @@ class AddEditModuleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddEditModuleBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.root.applySystemBarInsets()
 
         binding.toolbar.setNavigationOnClickListener { finish() }
 

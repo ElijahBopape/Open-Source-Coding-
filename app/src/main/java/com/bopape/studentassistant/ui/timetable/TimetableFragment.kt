@@ -19,6 +19,7 @@ import com.bopape.studentassistant.data.repository.TimetableRepository
 import com.bopape.studentassistant.databinding.FragmentTimetableBinding
 import com.bopape.studentassistant.util.ApiResult
 import com.google.android.material.chip.Chip
+import com.bopape.studentassistant.util.dayLabel
 import kotlinx.coroutines.launch
 import java.util.Calendar
 
@@ -66,7 +67,7 @@ class TimetableFragment : Fragment() {
         binding.chipGroupDay.removeAllViews()
         daysOfWeek.forEach { day ->
             val chip = Chip(requireContext()).apply {
-                text = day
+                text = requireContext().dayLabel(day)
                 isCheckable = true
                 isChecked = day == selectedDay
                 setOnClickListener {
@@ -80,6 +81,7 @@ class TimetableFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        binding.chipGroupDay.post { scrollToSelectedDay() }
         loadModules()
         loadTimetable()
     }
@@ -97,7 +99,7 @@ class TimetableFragment : Fragment() {
         lifecycleScope.launch {
             when (val result = timetableRepository.getTimetable()) {
                 is ApiResult.Success -> {
-                    Log.d(tag, "Loaded ${result.data.size} timetable entries")
+                    Log.d(tag, "Loaded ${result.data.size} timetable entries (fromCache=${result.fromCache})")
                     allEntries = result.data
                     applyDayFilter()
                 }
@@ -107,6 +109,12 @@ class TimetableFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun scrollToSelectedDay() {
+        val index = daysOfWeek.indexOf(selectedDay)
+        val chip = _binding?.chipGroupDay?.getChildAt(index) ?: return
+        (chip.parent?.parent as? android.widget.HorizontalScrollView)?.smoothScrollTo(chip.left - 24, 0)
     }
 
     private fun applyDayFilter() {
@@ -131,8 +139,8 @@ class TimetableFragment : Fragment() {
 
     private fun confirmDelete(entry: TimetableEntry) {
         AlertDialog.Builder(requireContext())
-            .setTitle(R.string.delete)
-            .setMessage(R.string.delete)
+            .setTitle(R.string.delete_class_confirm_title)
+            .setMessage(R.string.delete_class_confirm_message)
             .setPositiveButton(R.string.delete) { _, _ -> deleteEntry(entry) }
             .setNegativeButton(R.string.cancel, null)
             .show()

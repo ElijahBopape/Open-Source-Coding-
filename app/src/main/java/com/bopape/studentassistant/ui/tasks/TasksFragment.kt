@@ -9,21 +9,30 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bopape.studentassistant.R
-import com.bopape.studentassistant.data.model.Module
+import com.bopape.studentassistant.data.model.Exam
 import com.bopape.studentassistant.data.model.Priority
 import com.bopape.studentassistant.data.model.Task
+import com.bopape.studentassistant.data.repository.ExamRepository
 import com.bopape.studentassistant.data.repository.ModuleRepository
 import com.bopape.studentassistant.data.repository.TaskRepository
+import com.bopape.studentassistant.data.sync.SyncBus
+import com.bopape.studentassistant.data.sync.SyncScheduler
 import com.bopape.studentassistant.databinding.FragmentTasksBinding
 import com.bopape.studentassistant.util.ApiResult
 import com.bopape.studentassistant.util.DateUtils
 import com.bopape.studentassistant.util.PriorityUtils
 import kotlinx.coroutines.launch
 
-/** Lists tasks, applies the priority/today/done filters and lets the user manage them. */
+/**
+ * Lists tasks, applies the All/High/Today/Done filters and lets the user manage
+ * them. This screen is fully offline-capable: tasks are read from and written to
+ * Room, and changes are synced to the API in the background.
+ */
 class TasksFragment : Fragment() {
 
     private var _binding: FragmentTasksBinding? = null
@@ -31,17 +40,17 @@ class TasksFragment : Fragment() {
 
     private val taskRepository = TaskRepository()
     private val moduleRepository = ModuleRepository()
+    private val examRepository = ExamRepository()
     private lateinit var adapter: TaskAdapter
 
     private var allTasks: List<Task> = emptyList()
+    private var exams: List<Exam> = emptyList()
     private var currentFilter = Filter.ALL
     private val tag = "TasksFragment"
 
     private enum class Filter { ALL, HIGH, TODAY, DONE }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentTasksBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -50,7 +59,7 @@ class TasksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = TaskAdapter(
-            onClick = { openEditor(it) },
+            onClick = { openEditor(this, it) },
             onDelete = { confirmDelete(it) },
             onToggleComplete = { task, isChecked -> toggleComplete(task, isChecked) }
         )
@@ -70,93 +79,109 @@ class TasksFragment : Fragment() {
             }
             applyFilter()
         }
+
+        binding.swipeRefresh.setOnRefreshListener { syncNow() }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                SyncBus.events.collect { loadTasks() }
+            }
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        loadModules()
+        loadSupportingData()
         loadTasks()
+        SyncScheduler.requestSync(requireContext())
     }
 
-    private fun loadModules() {
-        lifecycleScope.launch {
+    private fun loadSupportingData() {
+        viewLifecycleOwner.lifecycleScope.launch {
             when (val result = moduleRepository.getModules()) {
                 is ApiResult.Success -> adapter.setModules(result.data)
                 is ApiResult.Failure -> Log.w(tag, "Could not load modules for task list: ${result.message}")
             }
+            exams = (examRepository.getExams() as? ApiResult.Success)?.data.orEmpty()
+            adapter.setExamModules(PriorityUtils.modulesWithExamSoon(exams))
+            applyFilter()
         }
     }
 
     private fun loadTasks() {
-        lifecycleScope.launch {
-            when (val result = taskRepository.getTasks()) {
-                is ApiResult.Success -> {
-                    Log.d(tag, "Loaded ${result.data.size} tasks")
-                    allTasks = result.data
-                    applyFilter()
-                }
-                is ApiResult.Failure -> {
-                    Log.e(tag, "Failed to load tasks: ${result.message}")
-                    Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
-                }
+        viewLifecycleOwner.lifecycleScope.launch {
+            val result = taskRepository.getTasks() as ApiResult.Success
+            Log.d(tag, "Loaded ${result.data.size} tasks from Room")
+            allTasks = result.data
+            applyFilter()
+        }
+    }
+
+    /** Pull-to-refresh: upload pending changes and download the latest from the API now. */
+    private fun syncNow() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            val outcome = taskRepository.syncNow()
+            _binding?.swipeRefresh?.isRefreshing = false
+            if (!outcome.success) {
+                Toast.makeText(requireContext(), R.string.sync_offline_message, Toast.LENGTH_SHORT).show()
             }
+            loadTasks()
         }
     }
 
     private fun applyFilter() {
+        if (_binding == null) return
+        val today = DateUtils.todayIso()
         val filtered = when (currentFilter) {
             Filter.ALL -> allTasks.filter { !it.completed }
             Filter.HIGH -> allTasks.filter { !it.completed && it.priority == Priority.HIGH }
-            Filter.TODAY -> allTasks.filter { !it.completed && it.dueDate == DateUtils.todayIso() }
+            Filter.TODAY -> allTasks.filter { !it.completed && it.dueDate <= today }
             Filter.DONE -> allTasks.filter { it.completed }
         }
-        val sorted = PriorityUtils.sortByPriority(filtered)
+        val sorted = PriorityUtils.sortByPriority(filtered, exams)
         adapter.submitList(sorted)
         binding.textNoTasks.visibility = if (sorted.isEmpty()) View.VISIBLE else View.GONE
     }
 
-    private fun openEditor(task: Task) {
-        val intent = Intent(requireContext(), AddEditTaskActivity::class.java).apply {
-            putExtra(AddEditTaskActivity.EXTRA_TASK_ID, task.id)
-            putExtra(AddEditTaskActivity.EXTRA_TASK_TITLE, task.title)
-            putExtra(AddEditTaskActivity.EXTRA_TASK_DESCRIPTION, task.description)
-            putExtra(AddEditTaskActivity.EXTRA_TASK_MODULE_ID, task.moduleId ?: -1)
-            putExtra(AddEditTaskActivity.EXTRA_TASK_DUE_DATE, task.dueDate)
-            putExtra(AddEditTaskActivity.EXTRA_TASK_PRIORITY, task.priority)
-            putExtra(AddEditTaskActivity.EXTRA_TASK_COMPLETED, task.completed)
-        }
-        startActivity(intent)
-    }
-
     private fun toggleComplete(task: Task, isChecked: Boolean) {
-        lifecycleScope.launch {
-            when (val result = taskRepository.updateTask(task.copy(completed = isChecked))) {
-                is ApiResult.Success -> loadTasks()
-                is ApiResult.Failure -> Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
-            }
+        viewLifecycleOwner.lifecycleScope.launch {
+            taskRepository.updateTask(task.copy(completed = isChecked))
+            loadTasks()
         }
     }
 
     private fun confirmDelete(task: Task) {
         AlertDialog.Builder(requireContext())
-            .setTitle(task.title)
-            .setMessage(R.string.delete)
-            .setPositiveButton(R.string.delete) { _, _ -> deleteTask(task) }
+            .setTitle(R.string.delete_task_confirm_title)
+            .setMessage(getString(R.string.delete_task_confirm_message, task.title))
+            .setPositiveButton(R.string.delete) { _, _ ->
+                viewLifecycleOwner.lifecycleScope.launch {
+                    taskRepository.deleteTask(task.id)
+                    loadTasks()
+                }
+            }
             .setNegativeButton(R.string.cancel, null)
             .show()
-    }
-
-    private fun deleteTask(task: Task) {
-        lifecycleScope.launch {
-            when (val result = taskRepository.deleteTask(task.id)) {
-                is ApiResult.Success -> loadTasks()
-                is ApiResult.Failure -> Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
-            }
-        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        /** Opens the task editor for [task]; shared with the dashboard. */
+        fun openEditor(fragment: Fragment, task: Task) {
+            val intent = Intent(fragment.requireContext(), AddEditTaskActivity::class.java).apply {
+                putExtra(AddEditTaskActivity.EXTRA_TASK_ID, task.id)
+                putExtra(AddEditTaskActivity.EXTRA_TASK_TITLE, task.title)
+                putExtra(AddEditTaskActivity.EXTRA_TASK_DESCRIPTION, task.description)
+                putExtra(AddEditTaskActivity.EXTRA_TASK_MODULE_ID, task.moduleId ?: -1)
+                putExtra(AddEditTaskActivity.EXTRA_TASK_DUE_DATE, task.dueDate)
+                putExtra(AddEditTaskActivity.EXTRA_TASK_PRIORITY, task.priority)
+                putExtra(AddEditTaskActivity.EXTRA_TASK_COMPLETED, task.completed)
+            }
+            fragment.startActivity(intent)
+        }
     }
 }

@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -27,11 +27,20 @@
                 android:textStyle="bold"
                 tools:text="Good day, Elijah" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/dashboard_subtitle"
+                android:textColor="@color/on_surface_muted"
+                android:textSize="13sp" />
+
+            <!-- Next class (timetable) -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:cardBackgroundColor="@color/primary"
+                app:cardBackgroundColor="@color/hero_card"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="0dp">
 
@@ -45,8 +54,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/dashboard_next_class"
-                        android:textColor="#CCFFFFFF"
                         android:textAllCaps="true"
+                        android:textColor="#CCFFFFFF"
                         android:textSize="12sp" />
 
                     <TextView
@@ -56,26 +65,215 @@
                         android:layout_marginTop="6dp"
                         android:textColor="@color/on_primary"
                         android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:text="Open Source Coding" />
 
                     <TextView
                         android:id="@+id/textNextClassDetail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:textColor="#CCFFFFFF" />
-
+                        android:textColor="#CCFFFFFF"
+                        tools:text="10:00 – 11:30 · Lab 3" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- Next exam + academic progress -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardNextExam"
+                    style="@style/Widget.StudentAssistant.Card"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <TextView
+                            style="@style/TextAppearance.StudentAssistant.Overline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="6dp"
+                            android:text="@string/dashboard_next_exam"
+                            app:drawableStartCompat="@drawable/ic_small_exam" />
+
+                        <TextView
+                            android:id="@+id/textNextExam"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:maxLines="2"
+                            android:textColor="@color/on_surface"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            tools:text="OPSC6312 Exam" />
+
+                        <TextView
+                            android:id="@+id/textNextExamDetail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:textColor="@color/on_surface_muted"
+                            android:textSize="12sp"
+                            tools:text="20 Nov · In 13 days" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Widget.StudentAssistant.Card"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <TextView
+                            style="@style/TextAppearance.StudentAssistant.Overline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="6dp"
+                            android:text="@string/dashboard_progress"
+                            app:drawableStartCompat="@drawable/ic_small_progress" />
+
+                        <TextView
+                            android:id="@+id/textProgressValue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:textColor="@color/primary"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            tools:text="72%" />
+
+                        <com.google.android.material.progressindicator.LinearProgressIndicator
+                            android:id="@+id/progressAverage"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:max="100"
+                            app:trackCornerRadius="4dp"
+                            app:trackThickness="6dp" />
+
+                        <TextView
+                            android:id="@+id/textProgressDetail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:textColor="@color/on_surface_muted"
+                            android:textSize="12sp"
+                            tools:text="Average of 2 exams" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <!-- Quick actions -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardModules"
+                    style="@style/Widget.StudentAssistant.Card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:gravity="center_vertical"
+                        android:padding="14dp"
+                        android:text="@string/nav_modules"
+                        android:textColor="@color/on_surface"
+                        android:textStyle="bold"
+                        app:drawableStartCompat="@drawable/ic_nav_modules"
+                        app:drawableTint="@color/primary" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardStudyPlanner"
+                    style="@style/Widget.StudentAssistant.Card"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:drawablePadding="10dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/study_planner_title"
+                            android:textColor="@color/on_surface"
+                            android:textStyle="bold"
+                            app:drawableStartCompat="@drawable/ic_nav_study"
+                            app:drawableTint="@color/primary" />
+
+                        <TextView
+                            android:id="@+id/textStudyToday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:textColor="@color/on_surface_muted"
+                            android:textSize="12sp"
+                            tools:text="2 sessions today (90 min)" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="@string/dashboard_priority_tasks"
-                android:textColor="@color/on_surface"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/dashboard_priority_tasks"
+                    android:textColor="@color/on_surface"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textSeeAllTasks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="6dp"
+                    android:text="@string/see_all"
+                    android:textColor="@color/primary"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/textNoTasks"
@@ -95,5 +293,5 @@
                 tools:listitem="@layout/item_task" />
 
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

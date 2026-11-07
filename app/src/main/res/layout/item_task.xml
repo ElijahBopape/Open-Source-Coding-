@@ -3,32 +3,31 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.StudentAssistant.Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
-    app:cardBackgroundColor="@color/surface"
-    app:cardCornerRadius="14dp"
-    app:cardElevation="1dp"
     android:clickable="true"
     android:focusable="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:padding="14dp">
 
         <CheckBox
             android:id="@+id/checkboxCompleted"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/mark_complete" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginStart="8dp"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
@@ -49,29 +48,55 @@
                 android:textSize="12sp"
                 tools:text="OPSC6312 · Due 24 Aug" />
 
+            <TextView
+                android:id="@+id/textExamBoost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:drawablePadding="4dp"
+                android:text="@string/exam_boost_label"
+                android:textColor="@color/priority_high"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:drawableStartCompat="@drawable/ic_small_exam"
+                app:drawableTint="@color/priority_high"
+                tools:visibility="visible" />
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iconPendingSync"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="6dp"
+            android:contentDescription="@string/pending_sync"
+            android:src="@drawable/ic_cloud_upload"
+            android:visibility="gone"
+            app:tint="@color/on_surface_muted"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/textPriorityBadge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
+            android:background="@drawable/bg_priority_badge"
             android:paddingHorizontal="10dp"
             android:paddingVertical="4dp"
             android:textColor="@color/on_primary"
             android:textSize="11sp"
             android:textStyle="bold"
-            android:background="@drawable/bg_priority_badge"
             tools:text="High" />
 
         <ImageButton
             android:id="@+id/buttonDeleteTask"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="4dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="2dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@android:drawable/ic_menu_delete"
-            android:contentDescription="@string/delete" />
+            android:contentDescription="@string/delete"
+            android:src="@drawable/ic_delete"
+            app:tint="@color/on_surface_muted" />
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

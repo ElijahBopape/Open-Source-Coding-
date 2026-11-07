@@ -17,10 +17,15 @@ import com.bopape.studentassistant.data.repository.TaskRepository
 import com.bopape.studentassistant.databinding.ActivityAddEditTaskBinding
 import com.bopape.studentassistant.util.ApiResult
 import com.bopape.studentassistant.util.DateUtils
+import com.bopape.studentassistant.util.applySystemBarInsets
+import com.bopape.studentassistant.util.displayDate
 import kotlinx.coroutines.launch
-import java.util.Calendar
 
-/** Creates a new task, or edits an existing one when launched with EXTRA_TASK_ID. */
+/**
+ * Creates a new task, or edits an existing one when launched with EXTRA_TASK_ID.
+ * Saving works offline: the task goes into Room immediately and is uploaded by
+ * the sync engine when a connection is available.
+ */
 class AddEditTaskActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddEditTaskBinding
@@ -37,9 +42,9 @@ class AddEditTaskActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddEditTaskBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.root.applySystemBarInsets()
 
         binding.toolbar.setNavigationOnClickListener { finish() }
-        binding.editDueDate.setText(DateUtils.formatIsoDateForDisplay(selectedDueDate))
         binding.editDueDate.setOnClickListener { showDatePicker() }
 
         editingTaskId = intent.getIntExtra(EXTRA_TASK_ID, 0)
@@ -48,7 +53,6 @@ class AddEditTaskActivity : AppCompatActivity() {
             binding.editTaskTitle.setText(intent.getStringExtra(EXTRA_TASK_TITLE))
             binding.editTaskDescription.setText(intent.getStringExtra(EXTRA_TASK_DESCRIPTION))
             selectedDueDate = intent.getStringExtra(EXTRA_TASK_DUE_DATE) ?: selectedDueDate
-            binding.editDueDate.setText(DateUtils.formatIsoDateForDisplay(selectedDueDate))
             isCompleted = intent.getBooleanExtra(EXTRA_TASK_COMPLETED, false)
             when (intent.getStringExtra(EXTRA_TASK_PRIORITY)) {
                 Priority.HIGH -> binding.radioHigh.isChecked = true
@@ -56,6 +60,7 @@ class AddEditTaskActivity : AppCompatActivity() {
                 else -> binding.radioMedium.isChecked = true
             }
         }
+        binding.editDueDate.setText(displayDate(selectedDueDate))
 
         loadModules()
         binding.buttonSaveTask.setOnClickListener { saveTask() }
@@ -66,12 +71,10 @@ class AddEditTaskActivity : AppCompatActivity() {
             when (val result = moduleRepository.getModules()) {
                 is ApiResult.Success -> {
                     modules = result.data
-                    val names = mutableListOf("None")
-                    names.addAll(modules.map { "${it.name} (${it.code})" })
+                    val names = mutableListOf(getString(R.string.none_option))
+                    names.addAll(modules.map { if (it.code.isBlank()) it.name else "${it.name} (${it.code})" })
                     binding.spinnerModule.adapter = ArrayAdapter(
-                        this@AddEditTaskActivity,
-                        android.R.layout.simple_spinner_dropdown_item,
-                        names
+                        this@AddEditTaskActivity, android.R.layout.simple_spinner_dropdown_item, names
                     )
                     val editingModuleId = intent.getIntExtra(EXTRA_TASK_MODULE_ID, -1)
                     val index = modules.indexOfFirst { it.id == editingModuleId }
@@ -83,16 +86,14 @@ class AddEditTaskActivity : AppCompatActivity() {
     }
 
     private fun showDatePicker() {
-        val calendar = Calendar.getInstance()
+        val current = DateUtils.parse(selectedDueDate) ?: DateUtils.today()
         DatePickerDialog(
             this,
             { _, year, month, dayOfMonth ->
                 selectedDueDate = DateUtils.isoDateFrom(year, month, dayOfMonth)
-                binding.editDueDate.setText(DateUtils.formatIsoDateForDisplay(selectedDueDate))
+                binding.editDueDate.setText(displayDate(selectedDueDate))
             },
-            calendar.get(Calendar.YEAR),
-            calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH)
+            current.year, current.monthValue - 1, current.dayOfMonth
         ).show()
     }
 
@@ -102,11 +103,13 @@ class AddEditTaskActivity : AppCompatActivity() {
             binding.editTaskTitle.error = getString(R.string.error_task_title_required)
             return
         }
+        if (title.length > 120) {
+            binding.editTaskTitle.error = getString(R.string.error_too_long)
+            return
+        }
 
         val selectedModulePosition = binding.spinnerModule.selectedItemPosition
-        val moduleId = if (selectedModulePosition in 1..modules.size) {
-            modules[selectedModulePosition - 1].id
-        } else null
+        val moduleId = if (selectedModulePosition in 1..modules.size) modules[selectedModulePosition - 1].id else null
 
         val priority = when (binding.radioGroupPriority.checkedRadioButtonId) {
             R.id.radioHigh -> Priority.HIGH

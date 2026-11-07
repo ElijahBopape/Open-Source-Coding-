@@ -15,6 +15,7 @@ import com.bopape.studentassistant.data.repository.ModuleRepository
 import com.bopape.studentassistant.data.repository.TimetableRepository
 import com.bopape.studentassistant.databinding.ActivityAddEditTimetableBinding
 import com.bopape.studentassistant.util.ApiResult
+import com.bopape.studentassistant.util.applySystemBarInsets
 import kotlinx.coroutines.launch
 import java.util.Calendar
 import java.util.Locale
@@ -38,6 +39,7 @@ class AddEditTimetableActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddEditTimetableBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.root.applySystemBarInsets()
 
         binding.toolbar.setNavigationOnClickListener { finish() }
         binding.editStartTime.setText(startTime)
