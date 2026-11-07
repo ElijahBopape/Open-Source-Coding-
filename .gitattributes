@@ -1,0 +1,7 @@
+# Keep shell scripts LF so GitHub Actions (Linux) can run them
+gradlew text eol=lf
+*.sh text eol=lf
+*.bat text eol=crlf
+*.png binary
+*.jpg binary
+*.jar binary

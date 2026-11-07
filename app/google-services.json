@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "908927152509",
-    "project_id": "student-assistant-bc979",
-    "storage_bucket": "student-assistant-bc979.firebasestorage.app"
+    "project_number": "1029288560947",
+    "project_id": "student-assistant-f1071",
+    "storage_bucket": "student-assistant-f1071.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:908927152509:android:90e6d99580b2b60ae79c14",
+        "mobilesdk_app_id": "1:1029288560947:android:72b1a0ba9dc1a3dd339646",
         "android_client_info": {
           "package_name": "com.bopape.studentassistant"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyB3JIMXuTqw283NGpOmN8QhxxK9nfQy9Ok"
+          "current_key": "AIzaSyAWdmnZD-1jYZGBvVMiUsOFzzwsFWm8ONY"
         }
       ],
       "services": {
