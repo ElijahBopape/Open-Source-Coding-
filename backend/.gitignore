@@ -1,6 +1,6 @@
 node_modules/
+data.json
 *.db
-*.db-journal
-*.db-wal
-*.db-shm
 .env
+serviceAccount*.json
+*-firebase-adminsdk-*.json

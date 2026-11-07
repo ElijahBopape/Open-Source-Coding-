@@ -1,15 +1,16 @@
 {
   "name": "student-assistant-api",
-  "version": "1.0.0",
-  "description": "REST API for the Student Assistant Android app (OPSC6312 Part 2/3). Stores modules, tasks and timetable entries in a lightweight JSON file store, scoped per Firebase user.",
+  "version": "3.0.0",
+  "description": "REST API for the Student Assistant Android app (OPSC6312 Final PoE). Express + Cloud Firestore (NoSQL) + Firebase Auth token verification + FCM push notifications.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "node --test"
+    "test": "node --test test/api.test.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "firebase-admin": "^13.10.0"
   },
   "engines": {
     "node": ">=18"

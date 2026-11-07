@@ -1,60 +1,32 @@
-const express = require("express");
-const store = require("../store");
+// /api/tasks - assignments and academic tasks (Part 1 design, section 3.5).
+// Saving a new, incomplete task sends a real-time push to the user's devices.
+const { makeCrudRouter, ISO_DATE, PRIORITIES, isBlank, optionalInt, trim } = require("./crud");
+const notify = require("../notify");
 
-const router = express.Router();
-
-// GET /api/tasks - all tasks belonging to the calling user
-router.get("/", (req, res) => {
-  const tasks = store.getAll("tasks", req.userId).sort((a, b) => a.dueDate.localeCompare(b.dueDate));
-  res.json(tasks);
-});
-
-// POST /api/tasks - create a task
-router.post("/", (req, res) => {
-  const { title, description, moduleId, dueDate, priority, completed } = req.body;
-  if (!title || !title.trim()) {
-    return res.status(400).json({ error: "title is required" });
+module.exports = makeCrudRouter({
+  collection: "tasks",
+  label: "Task",
+  validate: (b) => {
+    if (isBlank(b.title)) return "title is required";
+    if (!ISO_DATE.test(b.dueDate || "")) return "dueDate must be yyyy-MM-dd";
+    if (b.priority && !PRIORITIES.includes(b.priority)) return "priority must be High, Medium or Low";
+    return null;
+  },
+  normalise: (b) => ({
+    title: trim(b.title),
+    description: trim(b.description),
+    moduleId: optionalInt(b.moduleId),
+    dueDate: b.dueDate,
+    priority: b.priority || "Medium",
+    completed: !!b.completed
+  }),
+  sort: (a, b) => a.dueDate.localeCompare(b.dueDate),
+  afterSave: (req, task, isNew) => {
+    if (isNew && !task.completed) {
+      notify.sendToUser(req.userId, "New task added", `${task.title} - due ${task.dueDate} (${task.priority})`, {
+        type: "task",
+        id: task.id
+      });
+    }
   }
-  if (!dueDate) {
-    return res.status(400).json({ error: "dueDate is required" });
-  }
-
-  const created = store.insert("tasks", req.userId, {
-    title,
-    description: description || "",
-    moduleId: moduleId ?? null,
-    dueDate,
-    priority: priority || "Medium",
-    completed: !!completed
-  });
-  res.status(201).json(created);
 });
-
-// PUT /api/tasks/:id - update a task (also used to toggle "completed")
-router.put("/:id", (req, res) => {
-  const { title, description, moduleId, dueDate, priority, completed } = req.body;
-  const updated = store.update("tasks", req.params.id, req.userId, {
-    title,
-    description: description || "",
-    moduleId: moduleId ?? null,
-    dueDate,
-    priority: priority || "Medium",
-    completed: !!completed
-  });
-
-  if (!updated) {
-    return res.status(404).json({ error: "Task not found" });
-  }
-  res.json(updated);
-});
-
-// DELETE /api/tasks/:id
-router.delete("/:id", (req, res) => {
-  const removed = store.remove("tasks", req.params.id, req.userId);
-  if (!removed) {
-    return res.status(404).json({ error: "Task not found" });
-  }
-  res.status(204).send();
-});
-
-module.exports = router;

@@ -1,59 +1,22 @@
-const express = require("express");
-const store = require("../store");
+// /api/timetable - recurring weekly classes (Part 1 design, section 3.4).
+const { makeCrudRouter, TIME_24H, DAYS, isBlank, optionalInt, trim } = require("./crud");
 
-const router = express.Router();
-
-// GET /api/timetable - all class entries belonging to the calling user
-router.get("/", (req, res) => {
-  const entries = store
-    .getAll("timetable", req.userId)
-    .sort((a, b) => (a.dayOfWeek + a.startTime).localeCompare(b.dayOfWeek + b.startTime));
-  res.json(entries);
+module.exports = makeCrudRouter({
+  collection: "timetable",
+  label: "Timetable entry",
+  validate: (b) => {
+    if (isBlank(b.moduleId)) return "moduleId is required";
+    if (!DAYS.includes(b.dayOfWeek)) return "dayOfWeek must be Monday-Sunday";
+    if (!TIME_24H.test(b.startTime || "") || !TIME_24H.test(b.endTime || "")) return "times must be HH:mm";
+    if (b.endTime <= b.startTime) return "endTime must be after startTime";
+    return null;
+  },
+  normalise: (b) => ({
+    moduleId: optionalInt(b.moduleId),
+    dayOfWeek: b.dayOfWeek,
+    startTime: b.startTime,
+    endTime: b.endTime,
+    venue: trim(b.venue)
+  }),
+  sort: (a, b) => a.startTime.localeCompare(b.startTime)
 });
-
-// POST /api/timetable - create a class entry
-router.post("/", (req, res) => {
-  const { moduleId, dayOfWeek, startTime, endTime, venue } = req.body;
-  if (!moduleId || !dayOfWeek || !startTime || !endTime) {
-    return res
-      .status(400)
-      .json({ error: "moduleId, dayOfWeek, startTime and endTime are required" });
-  }
-
-  const created = store.insert("timetable", req.userId, {
-    moduleId,
-    dayOfWeek,
-    startTime,
-    endTime,
-    venue: venue || ""
-  });
-  res.status(201).json(created);
-});
-
-// PUT /api/timetable/:id - update a class entry
-router.put("/:id", (req, res) => {
-  const { moduleId, dayOfWeek, startTime, endTime, venue } = req.body;
-  const updated = store.update("timetable", req.params.id, req.userId, {
-    moduleId,
-    dayOfWeek,
-    startTime,
-    endTime,
-    venue: venue || ""
-  });
-
-  if (!updated) {
-    return res.status(404).json({ error: "Timetable entry not found" });
-  }
-  res.json(updated);
-});
-
-// DELETE /api/timetable/:id
-router.delete("/:id", (req, res) => {
-  const removed = store.remove("timetable", req.params.id, req.userId);
-  if (!removed) {
-    return res.status(404).json({ error: "Timetable entry not found" });
-  }
-  res.status(204).send();
-});
-
-module.exports = router;
