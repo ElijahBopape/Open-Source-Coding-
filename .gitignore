@@ -30,3 +30,8 @@ Thumbs.db
 
 ### Assignment brief / Part 1 PDFs (submitted separately, not part of this code repo) ###
 /*.pdf
+
+### Release signing - NEVER commit the private key or its passwords ###
+keystore.properties
+*.jks
+*.keystore

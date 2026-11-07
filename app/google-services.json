@@ -12,7 +12,12 @@
           "package_name": "com.bopape.studentassistant"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1029288560947-8nkose6ac2m8aa1vuql5v5unfh9behoq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyAWdmnZD-1jYZGBvVMiUsOFzzwsFWm8ONY"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1029288560947-8nkose6ac2m8aa1vuql5v5unfh9behoq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
