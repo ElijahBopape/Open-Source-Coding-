@@ -5,13 +5,14 @@ import com.bopape.studentassistant.data.remote.RetrofitClient
 import com.bopape.studentassistant.util.ApiResult
 import com.bopape.studentassistant.util.safeApiCall
 
-/** Talks to the /api/modules endpoints of the custom REST API. */
+/** Talks to the /api/modules endpoints; the list is cached in Room for offline viewing. */
 class ModuleRepository {
 
     private val api = RetrofitClient.apiService
+    private val loader = CachedListLoader("modules", Module::class.java)
 
     suspend fun getModules(): ApiResult<List<Module>> =
-        safeApiCall("getModules") { api.getModules() }
+        loader.load("getModules") { api.getModules() }
 
     suspend fun createModule(module: Module): ApiResult<Module> =
         safeApiCall("createModule") { api.createModule(module) }

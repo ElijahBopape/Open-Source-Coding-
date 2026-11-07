@@ -5,13 +5,14 @@ import com.bopape.studentassistant.data.remote.RetrofitClient
 import com.bopape.studentassistant.util.ApiResult
 import com.bopape.studentassistant.util.safeApiCall
 
-/** Talks to the /api/timetable endpoints of the custom REST API. */
+/** Talks to the /api/timetable endpoints; the list is cached in Room for offline viewing. */
 class TimetableRepository {
 
     private val api = RetrofitClient.apiService
+    private val loader = CachedListLoader("timetable", TimetableEntry::class.java)
 
     suspend fun getTimetable(): ApiResult<List<TimetableEntry>> =
-        safeApiCall("getTimetable") { api.getTimetable() }
+        loader.load("getTimetable") { api.getTimetable() }
 
     suspend fun createEntry(entry: TimetableEntry): ApiResult<TimetableEntry> =
         safeApiCall("createTimetableEntry") { api.createTimetableEntry(entry) }

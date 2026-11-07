@@ -1,42 +1,91 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.devtools.ksp'
     id 'com.google.gms.google-services'
 }
 
+// ---------------------------------------------------------------------------
+// Release signing (Play Store preparation).
+// The upload keystore and its passwords live in keystore.properties at the repo
+// root, which is git-ignored so the private key is never pushed to GitHub.
+// If the file is missing (e.g. on GitHub Actions) the release build is simply
+// left unsigned instead of failing.
+// https://developer.android.com/studio/publish/app-signing (Android Developers, 2026)
+// ---------------------------------------------------------------------------
+def keystorePropertiesFile = rootProject.file('keystore.properties')
+def keystoreProperties = new Properties()
+if (keystorePropertiesFile.exists()) {
+    keystorePropertiesFile.withInputStream { keystoreProperties.load(it) }
+}
+
+// Optional per-developer overrides in local.properties (also git-ignored), e.g.
+//   api.baseUrl=http://10.0.2.2:3000/   to point a debug build at a local API.
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withInputStream { localProperties.load(it) }
+}
+
+// The live REST API on Render (see /backend and README).
+def hostedApiUrl = "https://student-assistant-api-kxd2.onrender.com/"
+def debugApiUrl = localProperties.getProperty('api.baseUrl', hostedApiUrl)
+
 android {
     namespace 'com.bopape.studentassistant'
-    compileSdk 34
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.bopape.studentassistant"
         minSdk 24
-        targetSdk 34
-        versionCode 1
-        versionName "1.0"
+        // Google Play requires new apps and updates to target a recent API level.
+        // https://developer.android.com/google/play/requirements/target-sdk (Android Developers, 2026)
+        targetSdk 36
+        versionCode 3
+        versionName "3.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        // Base URL of the deployed REST API (see /backend). Replace this with your
-        // own Render URL once deployed - see backend/README.md.
-        buildConfigField "String", "API_BASE_URL", "\"https://student-assistant-api.onrender.com/\""
+        buildConfigField "String", "API_BASE_URL", "\"${hostedApiUrl}\""
+
+        // Cloudinary blob storage for profile photos. An *unsigned* upload preset
+        // is designed to be used from client apps, so these are not secrets.
+        // https://cloudinary.com/documentation/upload_images#unsigned_upload (Cloudinary, 2026)
+        buildConfigField "String", "CLOUDINARY_CLOUD_NAME", "\"${localProperties.getProperty('cloudinary.cloudName', 'dsbopape')}\""
+        buildConfigField "String", "CLOUDINARY_UPLOAD_PRESET", "\"${localProperties.getProperty('cloudinary.uploadPreset', 'student_assistant_unsigned')}\""
+
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    signingConfigs {
+        release {
+            if (keystorePropertiesFile.exists()) {
+                storeFile rootProject.file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+            }
+        }
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            // R8 shrinks and obfuscates the release build, which Play recommends.
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            if (keystorePropertiesFile.exists()) {
+                signingConfig signingConfigs.release
+            }
         }
         debug {
-            // 10.0.2.2 is the Android emulator's alias for the host machine's
-            // localhost. Debug builds talk to the backend run locally with
-            // `npm start` in /backend (see README) so the app works out of the
-            // box without needing a live Render deployment.
-            buildConfigField "String", "API_BASE_URL", "\"http://10.0.2.2:3000/\""
+            buildConfigField "String", "API_BASE_URL", "\"${debugApiUrl}\""
         }
     }
 
     compileOptions {
+        // Desugaring lets java.time (LocalDate) be used on Android 7 (API 24).
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
@@ -49,9 +98,24 @@ android {
         viewBinding true
         buildConfig true
     }
+
+    androidResources {
+        // Generates the per-app language list for Android 13+ system settings.
+        generateLocaleConfig true
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+}
+
+ksp {
+    arg("room.schemaLocation", "$projectDir/schemas")
 }
 
 dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.3'
+
     // Core Android / Kotlin
     implementation 'androidx.core:core-ktx:1.13.1'
     implementation 'androidx.appcompat:appcompat:1.7.0'
@@ -59,12 +123,17 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.recyclerview:recyclerview:1.3.2'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation 'androidx.activity:activity-ktx:1.9.3'
+    implementation 'androidx.fragment:fragment-ktx:1.8.5'
+    // Branded launch screen (final image assets)
+    implementation 'androidx.core:core-splashscreen:1.0.1'
 
     // Lifecycle + coroutines, used to call the REST API off the main thread
     // https://developer.android.com/kotlin/coroutines (Android Developers, 2026)
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.4'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.8.4'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.8.7'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.1'
 
     // Networking - Retrofit + Gson, used to talk to the custom REST API
     // https://square.github.io/retrofit/ (Square, 2026)
@@ -72,14 +141,33 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.11.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.12.0'
 
-    // Firebase Authentication (email/password + Google Sign-In)
+    // Offline mode: Room (SQLite) local database + WorkManager background sync
+    // https://developer.android.com/training/data-storage/room (Android Developers, 2026)
+    // https://developer.android.com/develop/background-work/background-tasks/persistent (Android Developers, 2026)
+    implementation 'androidx.room:room-runtime:2.6.1'
+    implementation 'androidx.room:room-ktx:2.6.1'
+    ksp 'androidx.room:room-compiler:2.6.1'
+    implementation 'androidx.work:work-runtime-ktx:2.9.1'
+
+    // Firebase: Authentication + Cloud Messaging (push notifications)
     // https://firebase.google.com/docs/auth/android/start (Google, 2026)
-    implementation platform('com.google.firebase:firebase-bom:33.1.2')
+    // https://firebase.google.com/docs/cloud-messaging/android/client (Google, 2026)
+    implementation platform('com.google.firebase:firebase-bom:33.7.0')
     implementation 'com.google.firebase:firebase-auth-ktx'
-    // Google Sign-In (com.google.android.gms:play-services-auth) will be added when
-    // SSO is implemented for the Final PoE - it is explicitly a "PoE only" requirement.
+    implementation 'com.google.firebase:firebase-messaging-ktx'
+
+    // Single sign-on: Google Sign-In through Android Credential Manager
+    // https://developer.android.com/identity/sign-in/credential-manager-siwg (Android Developers, 2026)
+    implementation 'androidx.credentials:credentials:1.3.0'
+    implementation 'androidx.credentials:credentials-play-services-auth:1.3.0'
+    implementation 'com.google.android.libraries.identity.googleid:googleid:1.1.1'
+
+    // Loads the profile photo from Cloudinary (blob storage)
+    // https://coil-kt.github.io/coil/ (Coil Contributors, 2026)
+    implementation 'io.coil-kt:coil:2.7.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.3.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.7.0'
+    androidTestImplementation 'androidx.room:room-testing:2.6.1'
 }
