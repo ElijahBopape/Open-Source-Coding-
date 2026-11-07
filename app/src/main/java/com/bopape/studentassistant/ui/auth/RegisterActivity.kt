@@ -7,16 +7,20 @@ import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.bopape.studentassistant.R
 import com.bopape.studentassistant.databinding.ActivityRegisterBinding
 import com.bopape.studentassistant.ui.main.MainActivity
+import com.bopape.studentassistant.util.applySystemBarInsets
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 /**
  * Handles account creation. Firebase Authentication salts and hashes the password
- * before it ever leaves the device's TLS connection; this app never stores or
- * transmits it in plain text (see requirement 3.1 in the Part 1 design document).
+ * (scrypt) on Google's servers; this app never stores or transmits it in plain
+ * text (see requirement 3.1 in the Part 1 design document).
  */
 class RegisterActivity : AppCompatActivity() {
 
@@ -28,6 +32,7 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.root.applySystemBarInsets()
 
         auth = FirebaseAuth.getInstance()
 
@@ -68,32 +73,30 @@ class RegisterActivity : AppCompatActivity() {
         setLoading(true)
         Log.d(tag, "Attempting registration for $email")
 
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    val profileUpdate = UserProfileChangeRequest.Builder()
-                        .setDisplayName(name)
-                        .build()
-                    auth.currentUser?.updateProfile(profileUpdate)
-                        ?.addOnCompleteListener {
-                            setLoading(false)
-                            Log.i(tag, "Registration succeeded for ${auth.currentUser?.uid}")
-                            startActivity(Intent(this, MainActivity::class.java))
-                            finish()
-                        }
-                } else {
-                    setLoading(false)
-                    Log.w(tag, "Registration failed", task.exception)
-                    Toast.makeText(
-                        this,
-                        getString(
-                            R.string.error_registration_failed,
-                            task.exception?.localizedMessage ?: "unknown error"
-                        ),
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
+        lifecycleScope.launch {
+            try {
+                auth.createUserWithEmailAndPassword(email, password).await()
+                auth.currentUser?.updateProfile(
+                    UserProfileChangeRequest.Builder().setDisplayName(name).build()
+                )?.await()
+                Log.i(tag, "Registration succeeded for ${auth.currentUser?.uid}")
+
+                AccountSetup.afterSignIn(applicationContext)
+                setLoading(false)
+                startActivity(Intent(this@RegisterActivity, MainActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                })
+                finish()
+            } catch (e: Exception) {
+                setLoading(false)
+                Log.w(tag, "Registration failed", e)
+                Toast.makeText(
+                    this@RegisterActivity,
+                    getString(R.string.error_registration_failed, e.localizedMessage ?: ""),
+                    Toast.LENGTH_LONG
+                ).show()
             }
+        }
     }
 
     private fun setLoading(loading: Boolean) {
