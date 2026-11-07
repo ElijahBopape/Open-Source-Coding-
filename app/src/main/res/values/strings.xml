@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- English (default). Translations: values-b+nso (Sepedi) and values-zu (isiZulu). -->
 <resources>
-    <string name="app_name">Student Assistant</string>
+    <string name="app_name" translatable="false">Student Assistant</string>
     <string name="app_tagline">Stay organised. Stay ahead.</string>
+    <string name="app_version">Student Assistant v%1$s</string>
 
     <!-- Login / Register -->
     <string name="email_hint">Email address</string>
@@ -15,6 +17,11 @@
     <string name="create_account_link">Create account</string>
     <string name="have_account_prompt">Already have an account? </string>
     <string name="login_link">Log in</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="reset_password_title">Reset your password</string>
+    <string name="reset_password_message">Enter your email address and we\'ll send you a link to choose a new password.</string>
+    <string name="reset_password_sent">If an account exists for that email, a reset link is on its way.</string>
+    <string name="send">Send</string>
     <string name="error_email_required">Please enter your email address</string>
     <string name="error_email_invalid">Please enter a valid email address</string>
     <string name="error_password_required">Please enter your password</string>
@@ -23,20 +30,51 @@
     <string name="error_name_required">Please enter your name</string>
     <string name="error_login_failed">Could not log in: %1$s</string>
     <string name="error_registration_failed">Could not create account: %1$s</string>
+    <string name="error_google_failed">Google sign-in failed: %1$s</string>
+    <string name="error_google_not_configured">Google sign-in is not set up for this build yet.</string>
 
     <!-- Bottom navigation -->
-    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_dashboard">Home</string>
     <string name="nav_modules">Modules</string>
     <string name="nav_tasks">Tasks</string>
     <string name="nav_timetable">Timetable</string>
+    <string name="nav_exams">Exams</string>
     <string name="nav_settings">Settings</string>
+    <string name="back">Back</string>
+
+    <!-- Offline mode -->
+    <string name="offline_banner">You\'re offline. Tasks still work and will sync later.</string>
+    <plurals name="offline_banner_pending">
+        <item quantity="one">You\'re offline. %1$d change will sync when you reconnect.</item>
+        <item quantity="other">You\'re offline. %1$d changes will sync when you reconnect.</item>
+    </plurals>
+    <string name="pending_sync">Waiting to sync</string>
+    <string name="sync_offline_message">Couldn\'t reach the server. Your changes are saved and will sync automatically.</string>
 
     <!-- Dashboard -->
-    <string name="dashboard_greeting_prefix">Good day,</string>
+    <string name="dashboard_greeting">Hello, %1$s</string>
+    <string name="dashboard_greeting_no_name">Hello</string>
+    <string name="dashboard_subtitle">Here\'s what needs your attention.</string>
     <string name="dashboard_next_class">Next class</string>
-    <string name="dashboard_no_class_today">No more classes scheduled for today</string>
+    <string name="dashboard_no_class_today">No more classes today</string>
+    <string name="dashboard_next_exam">Next exam</string>
+    <string name="dashboard_no_exams">No upcoming exams</string>
+    <string name="dashboard_progress">Progress</string>
+    <string name="dashboard_progress_empty">Add exam marks to track progress</string>
+    <plurals name="dashboard_progress_detail">
+        <item quantity="one">Average of %1$d exam</item>
+        <item quantity="other">Average of %1$d exams</item>
+    </plurals>
+    <string name="dashboard_study_none">Nothing planned today</string>
+    <plurals name="dashboard_study_today">
+        <item quantity="one">%1$d session today (%2$d min)</item>
+        <item quantity="other">%1$d sessions today (%2$d min)</item>
+    </plurals>
     <string name="dashboard_priority_tasks">Priority tasks</string>
     <string name="dashboard_no_tasks">You\'re all caught up. No pending tasks.</string>
+    <string name="see_all">See all</string>
+    <string name="unknown_module">Class</string>
+    <string name="percent_value">%1$d%%</string>
 
     <!-- Modules -->
     <string name="modules_title">Modules</string>
@@ -50,6 +88,8 @@
     <string name="no_modules_message">No modules yet. Tap + to add your first module.</string>
     <string name="delete_module_confirm_title">Delete module?</string>
     <string name="delete_module_confirm_message">This will not delete tasks or classes already linked to this module.</string>
+    <string name="no_module">No module</string>
+    <string name="none_option">None</string>
 
     <!-- Tasks -->
     <string name="tasks_title">Tasks</string>
@@ -66,11 +106,19 @@
     <string name="save_task_button">Save task</string>
     <string name="filter_all">All</string>
     <string name="filter_high">High</string>
-    <string name="filter_today">Today</string>
+    <string name="filter_today">Due today</string>
     <string name="filter_done">Done</string>
+    <string name="filter_upcoming">Upcoming</string>
+    <string name="filter_past">Past</string>
     <string name="no_tasks_message">No tasks match this filter yet.</string>
+    <string name="task_due">Due %1$s</string>
+    <string name="exam_boost_label">Exam soon - priority raised</string>
+    <string name="mark_complete">Mark as done</string>
+    <string name="delete_task_confirm_title">Delete task?</string>
+    <string name="delete_task_confirm_message">\"%1$s\" will be deleted.</string>
     <string name="error_task_title_required">Please enter a task title</string>
     <string name="error_due_date_required">Please choose a due date</string>
+    <string name="error_too_long">This is too long</string>
 
     <!-- Timetable -->
     <string name="timetable_title">Timetable</string>
@@ -81,25 +129,132 @@
     <string name="end_time_hint">End time</string>
     <string name="save_class_button">Save class</string>
     <string name="no_classes_message">No classes scheduled for this day.</string>
-    <string name="error_module_required">Please select a module</string>
+    <string name="delete_class_confirm_title">Delete class?</string>
+    <string name="delete_class_confirm_message">This class will be removed from your timetable.</string>
+    <string name="error_module_required">Please add a module first</string>
     <string name="error_end_before_start">End time must be after the start time</string>
+
+    <!-- Exams (User Defined feature 4) -->
+    <string name="exams_title">Exams</string>
+    <string name="add_exam_title">Add exam</string>
+    <string name="edit_exam_title">Edit exam</string>
+    <string name="exam_title_hint">Exam name</string>
+    <string name="exam_date_hint">Date</string>
+    <string name="duration_hint">Duration (minutes)</string>
+    <string name="mark_hint">Mark % (optional)</string>
+    <string name="mark_help">Add your mark after the exam to track your progress.</string>
+    <string name="save_exam_button">Save exam</string>
+    <string name="no_exams_message">No upcoming exams. Tap + to add one.</string>
+    <string name="no_past_exams">No past exams yet.</string>
+    <string name="exams_average">Average mark %1$d%% across %2$d exam(s)</string>
+    <string name="exams_average_none">Record marks for written exams to see your average.</string>
+    <string name="exam_written">Written</string>
+    <string name="delete_exam_confirm_title">Delete exam?</string>
+    <string name="delete_exam_confirm_message">\"%1$s\" will be deleted.</string>
+    <string name="error_exam_title_required">Please enter the exam name</string>
+    <string name="error_duration_range">Enter a duration between 5 and 600 minutes</string>
+    <string name="error_mark_range">Enter a mark between 0 and 100</string>
+    <string name="create_plan_button">Create study plan</string>
+
+    <!-- Study planner (User Defined feature 5) -->
+    <string name="study_planner_title">Study planner</string>
+    <string name="add_session_title">Add study session</string>
+    <string name="edit_session_title">Edit study session</string>
+    <string name="session_title_hint">What will you study?</string>
+    <string name="session_date_hint">Date</string>
+    <string name="preparing_for_label">Preparing for (optional)</string>
+    <string name="save_session_button">Save session</string>
+    <string name="no_sessions_message">No study sessions here. Use Smart plan or tap +.</string>
+    <string name="study_progress">%1$d%% done · %2$d of %3$d sessions</string>
+    <string name="study_remaining">%1$d h %2$d min of study left</string>
+    <string name="smart_plan_button">Smart plan</string>
+    <string name="smart_plan_help">Spreads revision for an exam or task evenly over the days you have left.</string>
+    <string name="smart_plan_choose">Plan for…</string>
+    <string name="smart_plan_nothing">Add an upcoming exam or task first.</string>
+    <string name="smart_plan_exam_item">Exam: %1$s (%2$s)</string>
+    <string name="smart_plan_task_item">Task: %1$s (%2$s)</string>
+    <string name="create_plan_title">How many sessions?</string>
+    <plurals name="plan_option">
+        <item quantity="one">%1$d session of 60 min</item>
+        <item quantity="other">%1$d sessions of 60 min</item>
+    </plurals>
+    <plurals name="plan_created">
+        <item quantity="one">%1$d study session added to your planner</item>
+        <item quantity="other">%1$d study sessions added to your planner</item>
+    </plurals>
+    <string name="plan_no_time">There are no days left before this deadline.</string>
+    <string name="plan_session_prefix">Revise</string>
+    <string name="plan_work_prefix">Work on: %1$s</string>
+    <string name="minutes_short">%1$d min</string>
+    <string name="linked_exam">Exam: %1$s</string>
+    <string name="linked_task">Task: %1$s</string>
+    <string name="delete_session_confirm_title">Delete study session?</string>
+    <string name="error_session_title_required">Please describe the session</string>
+
+    <!-- Relative dates -->
+    <string name="relative_today">Today</string>
+    <string name="relative_tomorrow">Tomorrow</string>
+    <string name="relative_in_days">In %1$d days</string>
+    <string name="relative_days_ago">%1$d days ago</string>
 
     <!-- Settings -->
     <string name="settings_title">Settings</string>
     <string name="preferences_header">Preferences</string>
     <string name="account_header">Account</string>
+    <string name="sync_header">Sync and notifications</string>
     <string name="language_label">Language</string>
-    <string name="notifications_label">Notifications for deadlines and exams</string>
+    <string name="notifications_label">Push notifications for deadlines and exams</string>
     <string name="dark_theme_label">Dark theme</string>
     <string name="sign_out_button">Sign out</string>
     <string name="settings_saved_message">Settings saved</string>
+    <string name="default_student_name">Student</string>
+    <string name="signed_in_with_google">Signed in with Google</string>
+    <string name="signed_in_with_email">Signed in with email</string>
+    <string name="profile_photo">Profile photo</string>
+    <string name="change_photo">Photo</string>
+    <string name="edit_name">Name</string>
+    <string name="edit_name_title">Your name</string>
+    <string name="photo_updated">Profile photo updated</string>
+    <string name="error_photo_read">That image could not be opened.</string>
+    <string name="error_photo_upload">Photo upload failed. Check your connection and try again.</string>
+    <string name="sync_now">Sync now</string>
+    <string name="sync_never">never</string>
+    <string name="sync_last">Last synced: %1$s</string>
+    <string name="sync_all_done">All changes are synced</string>
+    <plurals name="sync_pending">
+        <item quantity="one">%1$d change waiting to sync</item>
+        <item quantity="other">%1$d changes waiting to sync</item>
+    </plurals>
+    <string name="sync_done">Synced (%1$d change(s) uploaded)</string>
+    <string name="test_notification">Test push</string>
+    <string name="test_notification_sent">Test notification sent - it should arrive in a moment.</string>
+    <string name="test_notification_no_device">This device isn\'t registered for push yet. Try again in a few seconds.</string>
+    <string name="sign_out_pending_title">Changes not synced yet</string>
+    <plurals name="sign_out_pending_message">
+        <item quantity="one">%1$d offline change hasn\'t reached the server. Signing out will discard it.</item>
+        <item quantity="other">%1$d offline changes haven\'t reached the server. Signing out will discard them.</item>
+    </plurals>
+
+    <!-- Notifications -->
+    <string name="channel_updates_name">Updates</string>
+    <string name="channel_updates_description">Real-time alerts when your tasks and exams change</string>
+    <string name="channel_reminders_name">Deadline reminders</string>
+    <string name="channel_reminders_description">Daily reminders for tasks due soon and upcoming exams</string>
+    <string name="reminder_due_today">Due today</string>
+    <string name="reminder_due_tomorrow">Due tomorrow</string>
+    <string name="reminder_exam_soon">Exam coming up</string>
 
     <!-- Generic -->
     <string name="ok">OK</string>
+    <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
     <string name="loading">Loading…</string>
     <string name="error_network">Could not reach the server. Check your connection and try again.</string>
     <string name="error_generic">Something went wrong. Please try again.</string>
+    <string name="error_invalid_input">Some details are not valid. Please check and try again.</string>
+    <string name="error_session_expired">Your session has expired. Please sign in again.</string>
+    <string name="error_not_found">That item no longer exists.</string>
+    <string name="error_server">Server error (%1$d). Please try again later.</string>
 </resources>

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Sepedi (Northern Sotho, ISO 639 "nso"). Folder name uses the BCP-47 "b+" form
+     because "nso" is a three-letter language code. -->
+<resources>
+    <string name="app_tagline">Rulaganya. Eba pele.</string>
+    <string name="app_version">Student Assistant v%1$s</string>
+
+    <string name="email_hint">Aterese ya imeile</string>
+    <string name="password_hint">Lentšu la sephiri</string>
+    <string name="confirm_password_hint">Netefatša lentšu la sephiri</string>
+    <string name="full_name_hint">Leina ka botlalo</string>
+    <string name="login_button">Tsena</string>
+    <string name="register_button">Hlama akhaonte</string>
+    <string name="google_sign_in_button">Tšwela pele ka Google</string>
+    <string name="no_account_prompt">Ga o na akhaonte? </string>
+    <string name="create_account_link">Hlama akhaonte</string>
+    <string name="have_account_prompt">O šetše o na le akhaonte? </string>
+    <string name="login_link">Tsena</string>
+    <string name="forgot_password">O lebetše lentšu la sephiri?</string>
+    <string name="reset_password_title">Fetola lentšu la sephiri</string>
+    <string name="reset_password_message">Tsenya aterese ya gago ya imeile gomme re tla go romela kgokagano ya go kgetha lentšu le leswa la sephiri.</string>
+    <string name="reset_password_sent">Ge e ba go na le akhaonte ya imeile yeo, kgokagano ya go fetola e a tla.</string>
+    <string name="send">Romela</string>
+    <string name="error_email_required">Hle tsenya aterese ya gago ya imeile</string>
+    <string name="error_email_invalid">Hle tsenya aterese ya imeile ye e nepagetšego</string>
+    <string name="error_password_required">Hle tsenya lentšu la gago la sephiri</string>
+    <string name="error_password_too_short">Lentšu la sephiri le swanetše go ba le ditlhaka tše 8 goba go feta</string>
+    <string name="error_passwords_dont_match">Mantšu a sephiri ga a swane</string>
+    <string name="error_name_required">Hle tsenya leina la gago</string>
+    <string name="error_login_failed">Ga go kgonege go tsena: %1$s</string>
+    <string name="error_registration_failed">Ga go kgonege go hlama akhaonte: %1$s</string>
+    <string name="error_google_failed">Go tsena ka Google go paletše: %1$s</string>
+    <string name="error_google_not_configured">Go tsena ka Google ga go eso beakanywe mo kgatišong ye.</string>
+
+    <string name="nav_dashboard">Gae</string>
+    <string name="nav_modules">Dimotšule</string>
+    <string name="nav_tasks">Mešomo</string>
+    <string name="nav_timetable">Lenaneo</string>
+    <string name="nav_exams">Ditlhahlobo</string>
+    <string name="nav_settings">Dipeakanyo</string>
+    <string name="back">Morago</string>
+
+    <string name="offline_banner">Ga o kgokagane. Mešomo e sa šoma gomme e tla hlakanywa ka morago.</string>
+    <plurals name="offline_banner_pending">
+        <item quantity="one">Ga o kgokagane. Phetogo e %1$d e tla hlakanywa ge o kgokagana gape.</item>
+        <item quantity="other">Ga o kgokagane. Diphetogo tše %1$d di tla hlakanywa ge o kgokagana gape.</item>
+    </plurals>
+    <string name="pending_sync">E emetše go hlakanywa</string>
+    <string name="sync_offline_message">Ga go kgonege go fihlelela seva. Diphetogo tša gago di bolokilwe gomme di tla hlakanywa ka bo tšona.</string>
+
+    <string name="dashboard_greeting">Dumela, %1$s</string>
+    <string name="dashboard_greeting_no_name">Dumela</string>
+    <string name="dashboard_subtitle">Se ke seo se nyakago šedi ya gago.</string>
+    <string name="dashboard_next_class">Thuto ye e latelago</string>
+    <string name="dashboard_no_class_today">Ga go sa na dithuto lehono</string>
+    <string name="dashboard_next_exam">Tlhahlobo ye e latelago</string>
+    <string name="dashboard_no_exams">Ga go na ditlhahlobo tše di tlago</string>
+    <string name="dashboard_progress">Tšwelopele</string>
+    <string name="dashboard_progress_empty">Tsenya dintlha tša ditlhahlobo go latela tšwelopele</string>
+    <plurals name="dashboard_progress_detail">
+        <item quantity="one">Palogare ya tlhahlobo e %1$d</item>
+        <item quantity="other">Palogare ya ditlhahlobo tše %1$d</item>
+    </plurals>
+    <string name="dashboard_study_none">Ga go se se rulagantšwego lehono</string>
+    <plurals name="dashboard_study_today">
+        <item quantity="one">Nako ya go ithuta e %1$d lehono (metsotso ye %2$d)</item>
+        <item quantity="other">Dinako tša go ithuta tše %1$d lehono (metsotso ye %2$d)</item>
+    </plurals>
+    <string name="dashboard_priority_tasks">Mešomo ye bohlokwa</string>
+    <string name="dashboard_no_tasks">O fetše tšohle. Ga go na mešomo ye e emetšego.</string>
+    <string name="see_all">Bona tšohle</string>
+    <string name="unknown_module">Thuto</string>
+    <string name="percent_value">%1$d%%</string>
+
+    <string name="modules_title">Dimotšule</string>
+    <string name="add_module_title">Oketša motšule</string>
+    <string name="edit_module_title">Fetola motšule</string>
+    <string name="module_name_hint">Leina la motšule</string>
+    <string name="module_code_hint">Khoutu ya motšule (mohl. OPSC6312)</string>
+    <string name="lecturer_hint">Mofahlosi</string>
+    <string name="venue_hint">Lefelo</string>
+    <string name="save_module_button">Boloka motšule</string>
+    <string name="no_modules_message">Ga go na dimotšule. Tobetša + go oketša motšule wa mathomo.</string>
+    <string name="delete_module_confirm_title">Phumola motšule?</string>
+    <string name="delete_module_confirm_message">Se se ka se phumole mešomo goba dithuto tše di šetšego di kgokagantšwe le motšule wo.</string>
+    <string name="no_module">Ga go na motšule</string>
+    <string name="none_option">Ga go na</string>
+
+    <string name="tasks_title">Mešomo</string>
+    <string name="add_task_title">Oketša mošomo</string>
+    <string name="edit_task_title">Fetola mošomo</string>
+    <string name="task_title_hint">Sehlogo sa mošomo</string>
+    <string name="task_description_hint">Tlhaloso</string>
+    <string name="due_date_hint">Letšatši la go fetša</string>
+    <string name="select_module_hint">Motšule (ga se gapeletšo)</string>
+    <string name="priority_label">Bohlokwa</string>
+    <string name="priority_high">Godimo</string>
+    <string name="priority_medium">Magareng</string>
+    <string name="priority_low">Fase</string>
+    <string name="save_task_button">Boloka mošomo</string>
+    <string name="filter_all">Ka moka</string>
+    <string name="filter_high">Godimo</string>
+    <string name="filter_today">Ya lehono</string>
+    <string name="filter_done">Di phethilwe</string>
+    <string name="filter_upcoming">Tše di tlago</string>
+    <string name="filter_past">Tše di fetilego</string>
+    <string name="no_tasks_message">Ga go na mešomo ye e swanelago sefe se.</string>
+    <string name="task_due">E fela %1$s</string>
+    <string name="exam_boost_label">Tlhahlobo e kgauswi - bohlokwa bo oketšegile</string>
+    <string name="mark_complete">Swaya e fedile</string>
+    <string name="delete_task_confirm_title">Phumola mošomo?</string>
+    <string name="delete_task_confirm_message">\"%1$s\" e tla phumolwa.</string>
+    <string name="error_task_title_required">Hle tsenya sehlogo sa mošomo</string>
+    <string name="error_due_date_required">Hle kgetha letšatši la go fetša</string>
+    <string name="error_too_long">Se se telele kudu</string>
+
+    <string name="timetable_title">Lenaneo la nako</string>
+    <string name="add_class_title">Oketša thuto</string>
+    <string name="edit_class_title">Fetola thuto</string>
+    <string name="day_of_week_hint">Letšatši la beke</string>
+    <string name="start_time_hint">Nako ya go thoma</string>
+    <string name="end_time_hint">Nako ya go fetša</string>
+    <string name="save_class_button">Boloka thuto</string>
+    <string name="no_classes_message">Ga go na dithuto tše di rulagantšwego letšatšing le.</string>
+    <string name="delete_class_confirm_title">Phumola thuto?</string>
+    <string name="delete_class_confirm_message">Thuto ye e tla tlošwa lenaneong la gago.</string>
+    <string name="error_module_required">Hle oketša motšule pele</string>
+    <string name="error_end_before_start">Nako ya go fetša e swanetše go ba ka morago ga nako ya go thoma</string>
+
+    <string name="exams_title">Ditlhahlobo</string>
+    <string name="add_exam_title">Oketša tlhahlobo</string>
+    <string name="edit_exam_title">Fetola tlhahlobo</string>
+    <string name="exam_title_hint">Leina la tlhahlobo</string>
+    <string name="exam_date_hint">Letšatši</string>
+    <string name="duration_hint">Botelele (metsotso)</string>
+    <string name="mark_hint">Dintlha % (ga se gapeletšo)</string>
+    <string name="mark_help">Tsenya dintlha tša gago ka morago ga tlhahlobo go latela tšwelopele.</string>
+    <string name="save_exam_button">Boloka tlhahlobo</string>
+    <string name="no_exams_message">Ga go na ditlhahlobo tše di tlago. Tobetša + go oketša.</string>
+    <string name="no_past_exams">Ga go na ditlhahlobo tše di fetilego.</string>
+    <string name="exams_average">Palogare ya dintlha %1$d%% go ditlhahlobo tše %2$d</string>
+    <string name="exams_average_none">Tsenya dintlha tša ditlhahlobo tše o di ngwadilego go bona palogare.</string>
+    <string name="exam_written">E ngwadilwe</string>
+    <string name="delete_exam_confirm_title">Phumola tlhahlobo?</string>
+    <string name="delete_exam_confirm_message">\"%1$s\" e tla phumolwa.</string>
+    <string name="error_exam_title_required">Hle tsenya leina la tlhahlobo</string>
+    <string name="error_duration_range">Tsenya botelele magareng ga metsotso ye 5 le ye 600</string>
+    <string name="error_mark_range">Tsenya dintlha magareng ga 0 le 100</string>
+    <string name="create_plan_button">Hlama moralo wa go ithuta</string>
+
+    <string name="study_planner_title">Moralo wa go ithuta</string>
+    <string name="add_session_title">Oketša nako ya go ithuta</string>
+    <string name="edit_session_title">Fetola nako ya go ithuta</string>
+    <string name="session_title_hint">O tla ithuta eng?</string>
+    <string name="session_date_hint">Letšatši</string>
+    <string name="preparing_for_label">O itokišetša (ga se gapeletšo)</string>
+    <string name="save_session_button">Boloka nako</string>
+    <string name="no_sessions_message">Ga go na dinako tša go ithuta mo. Šomiša Moralo o bohlale goba tobetša +.</string>
+    <string name="study_progress">%1$d%% e fedile · %2$d go %3$d</string>
+    <string name="study_remaining">Diiri tše %1$d le metsotso ye %2$d tša go ithuta di šaletše</string>
+    <string name="smart_plan_button">Moralo o bohlale</string>
+    <string name="smart_plan_help">E aroganya go boeletša tlhahlobo goba mošomo ka go lekalekana mo matšatšing ao a šaletšego.</string>
+    <string name="smart_plan_choose">Rulaganyetša…</string>
+    <string name="smart_plan_nothing">Oketša tlhahlobo goba mošomo wo o tlago pele.</string>
+    <string name="smart_plan_exam_item">Tlhahlobo: %1$s (%2$s)</string>
+    <string name="smart_plan_task_item">Mošomo: %1$s (%2$s)</string>
+    <string name="create_plan_title">Dinako tše kae?</string>
+    <plurals name="plan_option">
+        <item quantity="one">Nako e %1$d ya metsotso ye 60</item>
+        <item quantity="other">Dinako tše %1$d tša metsotso ye 60</item>
+    </plurals>
+    <plurals name="plan_created">
+        <item quantity="one">Nako ya go ithuta e %1$d e okeditšwe moralong wa gago</item>
+        <item quantity="other">Dinako tša go ithuta tše %1$d di okeditšwe moralong wa gago</item>
+    </plurals>
+    <string name="plan_no_time">Ga go sa na matšatši pele ga letšatši le la mafelelo.</string>
+    <string name="plan_session_prefix">Boeletša</string>
+    <string name="plan_work_prefix">Šoma go: %1$s</string>
+    <string name="minutes_short">metsotso ye %1$d</string>
+    <string name="linked_exam">Tlhahlobo: %1$s</string>
+    <string name="linked_task">Mošomo: %1$s</string>
+    <string name="delete_session_confirm_title">Phumola nako ya go ithuta?</string>
+    <string name="error_session_title_required">Hle hlaloša nako ye</string>
+
+    <string name="relative_today">Lehono</string>
+    <string name="relative_tomorrow">Gosasa</string>
+    <string name="relative_in_days">Ka matšatši a %1$d</string>
+    <string name="relative_days_ago">Matšatši a %1$d a go feta</string>
+
+    <string name="settings_title">Dipeakanyo</string>
+    <string name="preferences_header">Dikgetho</string>
+    <string name="account_header">Akhaonte</string>
+    <string name="sync_header">Go hlakanya le ditsebišo</string>
+    <string name="language_label">Polelo</string>
+    <string name="notifications_label">Ditsebišo tša matšatši a go fetša le ditlhahlobo</string>
+    <string name="dark_theme_label">Thimi ya leswiswi</string>
+    <string name="sign_out_button">Tšwa</string>
+    <string name="settings_saved_message">Dipeakanyo di bolokilwe</string>
+    <string name="default_student_name">Moithuti</string>
+    <string name="signed_in_with_google">O tsene ka Google</string>
+    <string name="signed_in_with_email">O tsene ka imeile</string>
+    <string name="profile_photo">Seswantšho sa profaele</string>
+    <string name="change_photo">Seswantšho</string>
+    <string name="edit_name">Leina</string>
+    <string name="edit_name_title">Leina la gago</string>
+    <string name="photo_updated">Seswantšho sa profaele se fetotšwe</string>
+    <string name="error_photo_read">Seswantšho seo ga se bulege.</string>
+    <string name="error_photo_upload">Go romela seswantšho go paletše. Lekola kgokagano gomme o leke gape.</string>
+    <string name="sync_now">Hlakanya bjale</string>
+    <string name="sync_never">ga se gwa ka</string>
+    <string name="sync_last">Go hlakanya mafelelo: %1$s</string>
+    <string name="sync_all_done">Diphetogo ka moka di hlakantšwe</string>
+    <plurals name="sync_pending">
+        <item quantity="one">Phetogo e %1$d e emetše go hlakanywa</item>
+        <item quantity="other">Diphetogo tše %1$d di emetše go hlakanywa</item>
+    </plurals>
+    <string name="sync_done">Go hlakantšwe (diphetogo tše %1$d di rometšwe)</string>
+    <string name="test_notification">Leka tsebišo</string>
+    <string name="test_notification_sent">Tsebišo ya teko e rometšwe - e tla fihla gona bjale.</string>
+    <string name="test_notification_no_device">Sedirišwa se ga se eso ngwadišetšwe ditsebišo. Leka gape ka metsotswana ye mmalwa.</string>
+    <string name="sign_out_pending_title">Diphetogo ga di eso hlakanywe</string>
+    <plurals name="sign_out_pending_message">
+        <item quantity="one">Phetogo e %1$d ga e eso fihle sevareng. Go tšwa go tla e phumola.</item>
+        <item quantity="other">Diphetogo tše %1$d ga di eso fihle sevareng. Go tšwa go tla di phumola.</item>
+    </plurals>
+
+    <string name="channel_updates_name">Ditaba tše mpsha</string>
+    <string name="channel_updates_description">Ditsebišo ka pela ge mešomo le ditlhahlobo tša gago di fetoga</string>
+    <string name="channel_reminders_name">Dikgopotšo tša matšatši a go fetša</string>
+    <string name="channel_reminders_description">Dikgopotšo tša letšatši le letšatši tša mešomo le ditlhahlobo tše di tlago</string>
+    <string name="reminder_due_today">E fela lehono</string>
+    <string name="reminder_due_tomorrow">E fela gosasa</string>
+    <string name="reminder_exam_soon">Tlhahlobo e kgauswi</string>
+
+    <string name="ok">Go lokile</string>
+    <string name="save">Boloka</string>
+    <string name="cancel">Khansela</string>
+    <string name="delete">Phumola</string>
+    <string name="edit">Fetola</string>
+    <string name="loading">E a laiša…</string>
+    <string name="error_network">Ga go kgonege go fihlelela seva. Lekola kgokagano gomme o leke gape.</string>
+    <string name="error_generic">Go na le seo se sa sepelago gabotse. Hle leka gape.</string>
+    <string name="error_invalid_input">Tše dingwe tša dintlha ga se tša nnete. Hle lekola gomme o leke gape.</string>
+    <string name="error_session_expired">Nako ya gago ya go tsena e fedile. Hle tsena gape.</string>
+    <string name="error_not_found">Selo seo ga se sa le gona.</string>
+    <string name="error_server">Phošo ya seva (%1$d). Hle leka gape ka morago.</string>
+</resources>

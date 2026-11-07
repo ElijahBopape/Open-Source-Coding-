@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Light palette: blue-and-white scheme from the Part 1 design (section 2). -->
 <resources>
     <color name="primary">#2952E3</color>
     <color name="primary_dark">#1E3FBF</color>
+    <color name="primary_container">#E3E9FD</color>
     <color name="on_primary">#FFFFFF</color>
     <color name="background">#F3F5FB</color>
     <color name="surface">#FFFFFF</color>
     <color name="on_surface">#1A1F36</color>
     <color name="on_surface_muted">#6B7280</color>
     <color name="priority_high">#E5484D</color>
-    <color name="priority_medium">#F5A623</color>
+    <color name="priority_medium">#E08E0B</color>
     <color name="priority_low">#2F8F4E</color>
     <color name="divider">#E3E7F1</color>
+    <color name="offline_banner">#5B6475</color>
+    <color name="hero_card">#2952E3</color>
+    <color name="ic_launcher_background">#2952E3</color>
 </resources>

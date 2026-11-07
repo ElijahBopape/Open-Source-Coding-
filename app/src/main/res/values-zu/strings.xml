@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- isiZulu (ISO 639 "zu"). -->
+<resources>
+    <string name="app_tagline">Hlela kahle. Hlala phambili.</string>
+    <string name="app_version">Student Assistant v%1$s</string>
+
+    <string name="email_hint">Ikheli le-imeyili</string>
+    <string name="password_hint">Iphasiwedi</string>
+    <string name="confirm_password_hint">Qinisekisa iphasiwedi</string>
+    <string name="full_name_hint">Igama eliphelele</string>
+    <string name="login_button">Ngena</string>
+    <string name="register_button">Dala i-akhawunti</string>
+    <string name="google_sign_in_button">Qhubeka nge-Google</string>
+    <string name="no_account_prompt">Awunayo i-akhawunti? </string>
+    <string name="create_account_link">Dala i-akhawunti</string>
+    <string name="have_account_prompt">Usunayo i-akhawunti? </string>
+    <string name="login_link">Ngena</string>
+    <string name="forgot_password">Ukhohlwe iphasiwedi?</string>
+    <string name="reset_password_title">Setha kabusha iphasiwedi</string>
+    <string name="reset_password_message">Faka ikheli lakho le-imeyili sizokuthumelela isixhumanisi sokukhetha iphasiwedi entsha.</string>
+    <string name="reset_password_sent">Uma ikhona i-akhawunti yaleyo imeyili, isixhumanisi sokusetha kabusha siyeza.</string>
+    <string name="send">Thumela</string>
+    <string name="error_email_required">Sicela ufake ikheli lakho le-imeyili</string>
+    <string name="error_email_invalid">Sicela ufake ikheli le-imeyili elivumelekile</string>
+    <string name="error_password_required">Sicela ufake iphasiwedi yakho</string>
+    <string name="error_password_too_short">Iphasiwedi kufanele ibe nezinhlamvu ezi-8 noma ngaphezulu</string>
+    <string name="error_passwords_dont_match">Amaphasiwedi awafani</string>
+    <string name="error_name_required">Sicela ufake igama lakho</string>
+    <string name="error_login_failed">Akukwazekanga ukungena: %1$s</string>
+    <string name="error_registration_failed">Akukwazekanga ukudala i-akhawunti: %1$s</string>
+    <string name="error_google_failed">Ukungena nge-Google kuhlulekile: %1$s</string>
+    <string name="error_google_not_configured">Ukungena nge-Google akukasethwa kulolu hlelo.</string>
+
+    <string name="nav_dashboard">Ekhaya</string>
+    <string name="nav_modules">Amamojuli</string>
+    <string name="nav_tasks">Imisebenzi</string>
+    <string name="nav_timetable">Uhlelo</string>
+    <string name="nav_exams">Izivivinyo</string>
+    <string name="nav_settings">Izilungiselelo</string>
+    <string name="back">Emuva</string>
+
+    <string name="offline_banner">Awuxhumekile. Imisebenzi isasebenza futhi izovumelaniswa kamuva.</string>
+    <plurals name="offline_banner_pending">
+        <item quantity="one">Awuxhumekile. Ushintsho olu-%1$d luzovumelaniswa uma uxhumeka futhi.</item>
+        <item quantity="other">Awuxhumekile. Izinguquko ezi-%1$d zizovumelaniswa uma uxhumeka futhi.</item>
+    </plurals>
+    <string name="pending_sync">Ilinde ukuvumelaniswa</string>
+    <string name="sync_offline_message">Akukwazekanga ukufinyelela iseva. Izinguquko zakho zilondoloziwe futhi zizovumelaniswa ngokuzenzakalela.</string>
+
+    <string name="dashboard_greeting">Sawubona, %1$s</string>
+    <string name="dashboard_greeting_no_name">Sawubona</string>
+    <string name="dashboard_subtitle">Nakhu okudinga ukunakwa kwakho.</string>
+    <string name="dashboard_next_class">Ikilasi elilandelayo</string>
+    <string name="dashboard_no_class_today">Awekho amanye amakilasi namuhla</string>
+    <string name="dashboard_next_exam">Isivivinyo esilandelayo</string>
+    <string name="dashboard_no_exams">Azikho izivivinyo ezizayo</string>
+    <string name="dashboard_progress">Inqubekela phambili</string>
+    <string name="dashboard_progress_empty">Faka amamaki ezivivinyo ukuze ulandelele inqubekela phambili</string>
+    <plurals name="dashboard_progress_detail">
+        <item quantity="one">Isilinganiso sesivivinyo esi-%1$d</item>
+        <item quantity="other">Isilinganiso sezivivinyo ezi-%1$d</item>
+    </plurals>
+    <string name="dashboard_study_none">Akukho okuhleliwe namuhla</string>
+    <plurals name="dashboard_study_today">
+        <item quantity="one">Isikhathi sokufunda esi-%1$d namuhla (imizuzu engu-%2$d)</item>
+        <item quantity="other">Izikhathi zokufunda ezi-%1$d namuhla (imizuzu engu-%2$d)</item>
+    </plurals>
+    <string name="dashboard_priority_tasks">Imisebenzi ebalulekile</string>
+    <string name="dashboard_no_tasks">Uqedile konke. Ayikho imisebenzi esalindile.</string>
+    <string name="see_all">Bona konke</string>
+    <string name="unknown_module">Ikilasi</string>
+    <string name="percent_value">%1$d%%</string>
+
+    <string name="modules_title">Amamojuli</string>
+    <string name="add_module_title">Engeza imojuli</string>
+    <string name="edit_module_title">Hlela imojuli</string>
+    <string name="module_name_hint">Igama lemojuli</string>
+    <string name="module_code_hint">Ikhodi yemojuli (isb. OPSC6312)</string>
+    <string name="lecturer_hint">Umfundisi</string>
+    <string name="venue_hint">Indawo</string>
+    <string name="save_module_button">Londoloza imojuli</string>
+    <string name="no_modules_message">Awekho amamojuli okwamanje. Thepha + ukuze wengeze imojuli yakho yokuqala.</string>
+    <string name="delete_module_confirm_title">Susa imojuli?</string>
+    <string name="delete_module_confirm_message">Lokhu ngeke kususe imisebenzi noma amakilasi asexhunywe kule mojuli.</string>
+    <string name="no_module">Ayikho imojuli</string>
+    <string name="none_option">Lutho</string>
+
+    <string name="tasks_title">Imisebenzi</string>
+    <string name="add_task_title">Engeza umsebenzi</string>
+    <string name="edit_task_title">Hlela umsebenzi</string>
+    <string name="task_title_hint">Isihloko somsebenzi</string>
+    <string name="task_description_hint">Incazelo</string>
+    <string name="due_date_hint">Usuku lokugcina</string>
+    <string name="select_module_hint">Imojuli (akuphoqelekile)</string>
+    <string name="priority_label">Ukubaluleka</string>
+    <string name="priority_high">Phezulu</string>
+    <string name="priority_medium">Phakathi</string>
+    <string name="priority_low">Phansi</string>
+    <string name="save_task_button">Londoloza umsebenzi</string>
+    <string name="filter_all">Konke</string>
+    <string name="filter_high">Phezulu</string>
+    <string name="filter_today">Okwanamuhla</string>
+    <string name="filter_done">Kuqediwe</string>
+    <string name="filter_upcoming">Ezizayo</string>
+    <string name="filter_past">Ezedlule</string>
+    <string name="no_tasks_message">Ayikho imisebenzi ehambisana nalesi sihlungi.</string>
+    <string name="task_due">Kuphela ngo-%1$s</string>
+    <string name="exam_boost_label">Isivivinyo siseduze - ukubaluleka kukhushulwe</string>
+    <string name="mark_complete">Maka njengokuqediwe</string>
+    <string name="delete_task_confirm_title">Susa umsebenzi?</string>
+    <string name="delete_task_confirm_message">\"%1$s\" uzosuswa.</string>
+    <string name="error_task_title_required">Sicela ufake isihloko somsebenzi</string>
+    <string name="error_due_date_required">Sicela ukhethe usuku lokugcina</string>
+    <string name="error_too_long">Lokhu kude kakhulu</string>
+
+    <string name="timetable_title">Uhlelo lwesikhathi</string>
+    <string name="add_class_title">Engeza ikilasi</string>
+    <string name="edit_class_title">Hlela ikilasi</string>
+    <string name="day_of_week_hint">Usuku lwesonto</string>
+    <string name="start_time_hint">Isikhathi sokuqala</string>
+    <string name="end_time_hint">Isikhathi sokuphela</string>
+    <string name="save_class_button">Londoloza ikilasi</string>
+    <string name="no_classes_message">Awekho amakilasi ahlelwe ngalolu suku.</string>
+    <string name="delete_class_confirm_title">Susa ikilasi?</string>
+    <string name="delete_class_confirm_message">Leli kilasi lizosuswa ohlelweni lwakho.</string>
+    <string name="error_module_required">Sicela wengeze imojuli kuqala</string>
+    <string name="error_end_before_start">Isikhathi sokuphela kufanele sibe emva kwesikhathi sokuqala</string>
+
+    <string name="exams_title">Izivivinyo</string>
+    <string name="add_exam_title">Engeza isivivinyo</string>
+    <string name="edit_exam_title">Hlela isivivinyo</string>
+    <string name="exam_title_hint">Igama lesivivinyo</string>
+    <string name="exam_date_hint">Usuku</string>
+    <string name="duration_hint">Ubude besikhathi (imizuzu)</string>
+    <string name="mark_hint">Amamaki % (akuphoqelekile)</string>
+    <string name="mark_help">Faka amamaki akho ngemuva kwesivivinyo ukuze ulandelele inqubekela phambili.</string>
+    <string name="save_exam_button">Londoloza isivivinyo</string>
+    <string name="no_exams_message">Azikho izivivinyo ezizayo. Thepha + ukuze wengeze.</string>
+    <string name="no_past_exams">Azikho izivivinyo ezedlule okwamanje.</string>
+    <string name="exams_average">Isilinganiso samamaki %1$d%% ezivivinyweni ezi-%2$d</string>
+    <string name="exams_average_none">Faka amamaki ezivivinyo osuzibhalile ukuze ubone isilinganiso.</string>
+    <string name="exam_written">Sibhaliwe</string>
+    <string name="delete_exam_confirm_title">Susa isivivinyo?</string>
+    <string name="delete_exam_confirm_message">\"%1$s\" sizosuswa.</string>
+    <string name="error_exam_title_required">Sicela ufake igama lesivivinyo</string>
+    <string name="error_duration_range">Faka isikhathi esiphakathi kwemizuzu emi-5 nengu-600</string>
+    <string name="error_mark_range">Faka amamaki aphakathi kuka-0 no-100</string>
+    <string name="create_plan_button">Dala uhlelo lokufunda</string>
+
+    <string name="study_planner_title">Umhleli wokufunda</string>
+    <string name="add_session_title">Engeza isikhathi sokufunda</string>
+    <string name="edit_session_title">Hlela isikhathi sokufunda</string>
+    <string name="session_title_hint">Uzofundani?</string>
+    <string name="session_date_hint">Usuku</string>
+    <string name="preparing_for_label">Ulungiselela (akuphoqelekile)</string>
+    <string name="save_session_button">Londoloza isikhathi</string>
+    <string name="no_sessions_message">Azikho izikhathi zokufunda lapha. Sebenzisa Uhlelo oluhlakaniphile noma uthephe +.</string>
+    <string name="study_progress">%1$d%% kuqediwe · %2$d kwezingu-%3$d</string>
+    <string name="study_remaining">Kusele amahora angu-%1$d nemizuzu engu-%2$d yokufunda</string>
+    <string name="smart_plan_button">Uhlelo oluhlakaniphile</string>
+    <string name="smart_plan_help">Lusabalalisa ukubuyekeza isivivinyo noma umsebenzi ngokulinganayo ezinsukwini ezisele.</string>
+    <string name="smart_plan_choose">Hlelela…</string>
+    <string name="smart_plan_nothing">Engeza isivivinyo noma umsebenzi ozayo kuqala.</string>
+    <string name="smart_plan_exam_item">Isivivinyo: %1$s (%2$s)</string>
+    <string name="smart_plan_task_item">Umsebenzi: %1$s (%2$s)</string>
+    <string name="create_plan_title">Zingaki izikhathi?</string>
+    <plurals name="plan_option">
+        <item quantity="one">Isikhathi esi-%1$d semizuzu engu-60</item>
+        <item quantity="other">Izikhathi ezi-%1$d zemizuzu engu-60</item>
+    </plurals>
+    <plurals name="plan_created">
+        <item quantity="one">Isikhathi sokufunda esi-%1$d sengeziwe kumhleli wakho</item>
+        <item quantity="other">Izikhathi zokufunda ezi-%1$d zengeziwe kumhleli wakho</item>
+    </plurals>
+    <string name="plan_no_time">Azikho izinsuku ezisele ngaphambi kwalolu suku lokugcina.</string>
+    <string name="plan_session_prefix">Buyekeza</string>
+    <string name="plan_work_prefix">Sebenzela: %1$s</string>
+    <string name="minutes_short">imiz. engu-%1$d</string>
+    <string name="linked_exam">Isivivinyo: %1$s</string>
+    <string name="linked_task">Umsebenzi: %1$s</string>
+    <string name="delete_session_confirm_title">Susa isikhathi sokufunda?</string>
+    <string name="error_session_title_required">Sicela uchaze lesi sikhathi</string>
+
+    <string name="relative_today">Namuhla</string>
+    <string name="relative_tomorrow">Kusasa</string>
+    <string name="relative_in_days">Ezinsukwini ezi-%1$d</string>
+    <string name="relative_days_ago">Ezinsukwini ezi-%1$d ezedlule</string>
+
+    <string name="settings_title">Izilungiselelo</string>
+    <string name="preferences_header">Okuthandayo</string>
+    <string name="account_header">I-akhawunti</string>
+    <string name="sync_header">Ukuvumelanisa nezaziso</string>
+    <string name="language_label">Ulimi</string>
+    <string name="notifications_label">Izaziso zezinsuku zokugcina nezivivinyo</string>
+    <string name="dark_theme_label">Itimu emnyama</string>
+    <string name="sign_out_button">Phuma</string>
+    <string name="settings_saved_message">Izilungiselelo zilondoloziwe</string>
+    <string name="default_student_name">Umfundi</string>
+    <string name="signed_in_with_google">Ungene nge-Google</string>
+    <string name="signed_in_with_email">Ungene nge-imeyili</string>
+    <string name="profile_photo">Isithombe sephrofayili</string>
+    <string name="change_photo">Isithombe</string>
+    <string name="edit_name">Igama</string>
+    <string name="edit_name_title">Igama lakho</string>
+    <string name="photo_updated">Isithombe sephrofayili sibuyekeziwe</string>
+    <string name="error_photo_read">Leso sithombe asikwazanga ukuvulwa.</string>
+    <string name="error_photo_upload">Ukulayisha isithombe kuhlulekile. Hlola ukuxhumeka bese uzama futhi.</string>
+    <string name="sync_now">Vumelanisa manje</string>
+    <string name="sync_never">akukaze</string>
+    <string name="sync_last">Ukuvumelanisa kokugcina: %1$s</string>
+    <string name="sync_all_done">Zonke izinguquko zivumelanisiwe</string>
+    <plurals name="sync_pending">
+        <item quantity="one">Ushintsho olu-%1$d lulinde ukuvumelaniswa</item>
+        <item quantity="other">Izinguquko ezi-%1$d zilinde ukuvumelaniswa</item>
+    </plurals>
+    <string name="sync_done">Kuvumelanisiwe (izinguquko ezi-%1$d zithunyelwe)</string>
+    <string name="test_notification">Hlola isaziso</string>
+    <string name="test_notification_sent">Isaziso sokuhlola sithunyelwe - sizofika manje.</string>
+    <string name="test_notification_no_device">Le divayisi ayikabhaliselwa izaziso. Zama futhi emizuzwaneni embalwa.</string>
+    <string name="sign_out_pending_title">Izinguquko azikavumelaniswa</string>
+    <plurals name="sign_out_pending_message">
+        <item quantity="one">Ushintsho olu-%1$d alukafiki kuseva. Ukuphuma kuzolususa.</item>
+        <item quantity="other">Izinguquko ezi-%1$d azikafiki kuseva. Ukuphuma kuzozisusa.</item>
+    </plurals>
+
+    <string name="channel_updates_name">Izibuyekezo</string>
+    <string name="channel_updates_description">Izaziso ngokushesha lapho imisebenzi nezivivinyo zakho zishintsha</string>
+    <string name="channel_reminders_name">Izikhumbuzo zezinsuku zokugcina</string>
+    <string name="channel_reminders_description">Izikhumbuzo zansuku zonke zemisebenzi nezivivinyo eziseduze</string>
+    <string name="reminder_due_today">Kuphela namuhla</string>
+    <string name="reminder_due_tomorrow">Kuphela kusasa</string>
+    <string name="reminder_exam_soon">Isivivinyo siseduze</string>
+
+    <string name="ok">Kulungile</string>
+    <string name="save">Londoloza</string>
+    <string name="cancel">Khansela</string>
+    <string name="delete">Susa</string>
+    <string name="edit">Hlela</string>
+    <string name="loading">Iyalayisha…</string>
+    <string name="error_network">Akukwazekanga ukufinyelela iseva. Hlola ukuxhumeka kwakho bese uzama futhi.</string>
+    <string name="error_generic">Kukhona okungahambanga kahle. Sicela uzame futhi.</string>
+    <string name="error_invalid_input">Eminye imininingwane ayivumelekile. Sicela uhlole bese uzama futhi.</string>
+    <string name="error_session_expired">Iseshini yakho iphelelwe yisikhathi. Sicela ungene futhi.</string>
+    <string name="error_not_found">Leyo nto ayisekho.</string>
+    <string name="error_server">Iphutha leseva (%1$d). Sicela uzame futhi kamuva.</string>
+</resources>

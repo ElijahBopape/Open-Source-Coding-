@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dark status-bar icons on the light theme -->
+    <bool name="light_system_bars">true</bool>
+    <dimen name="dialog_padding">24dp</dimen>
+</resources>

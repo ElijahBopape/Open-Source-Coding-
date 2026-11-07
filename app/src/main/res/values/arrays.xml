@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Language preference is stored now; full translated resources (values-nso, values-zu)
-         are planned for the multi-language requirement in the Final PoE. -->
-    <string-array name="language_options">
+    <!-- Language names are shown in their own language, in the same order as
+         LocaleHelper.supportedCodes ("en", "nso", "zu"). -->
+    <string-array name="language_options" translatable="false">
         <item>English</item>
         <item>Sepedi</item>
         <item>isiZulu</item>
     </string-array>
 
-    <string-array name="priority_options">
-        <item>High</item>
-        <item>Medium</item>
-        <item>Low</item>
-    </string-array>
-
-    <string-array name="day_of_week_options">
+    <!-- Monday first; matches DateUtils.storedDayNames. -->
+    <string-array name="days_of_week">
         <item>Monday</item>
         <item>Tuesday</item>
         <item>Wednesday</item>
@@ -22,5 +17,20 @@
         <item>Friday</item>
         <item>Saturday</item>
         <item>Sunday</item>
+    </string-array>
+
+    <string-array name="months_short">
+        <item>Jan</item>
+        <item>Feb</item>
+        <item>Mar</item>
+        <item>Apr</item>
+        <item>May</item>
+        <item>Jun</item>
+        <item>Jul</item>
+        <item>Aug</item>
+        <item>Sep</item>
+        <item>Oct</item>
+        <item>Nov</item>
+        <item>Dec</item>
     </string-array>
 </resources>

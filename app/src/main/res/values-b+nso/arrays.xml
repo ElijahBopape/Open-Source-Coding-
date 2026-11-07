@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="days_of_week">
+        <item>Mošupologo</item>
+        <item>Labobedi</item>
+        <item>Laboraro</item>
+        <item>Labone</item>
+        <item>Labohlano</item>
+        <item>Mokibelo</item>
+        <item>Sontaga</item>
+    </string-array>
+
+    <string-array name="months_short">
+        <item>Jan</item>
+        <item>Feb</item>
+        <item>Mat</item>
+        <item>Apo</item>
+        <item>Mei</item>
+        <item>Jun</item>
+        <item>Jul</item>
+        <item>Ago</item>
+        <item>Set</item>
+        <item>Okt</item>
+        <item>Nof</item>
+        <item>Dis</item>
+    </string-array>
+</resources>
