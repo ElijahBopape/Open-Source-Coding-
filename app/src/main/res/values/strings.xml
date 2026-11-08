@@ -13,9 +13,9 @@
     <string name="login_button">Log in</string>
     <string name="register_button">Create account</string>
     <string name="google_sign_in_button">Continue with Google</string>
-    <string name="no_account_prompt">Don\'t have an account? </string>
+    <string name="no_account_prompt">Don\'t have an account?\u0020</string>
     <string name="create_account_link">Create account</string>
-    <string name="have_account_prompt">Already have an account? </string>
+    <string name="have_account_prompt">Already have an account?\u0020</string>
     <string name="login_link">Log in</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="reset_password_title">Reset your password</string>

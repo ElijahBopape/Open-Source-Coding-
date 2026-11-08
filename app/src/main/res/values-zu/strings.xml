@@ -11,9 +11,9 @@
     <string name="login_button">Ngena</string>
     <string name="register_button">Dala i-akhawunti</string>
     <string name="google_sign_in_button">Qhubeka nge-Google</string>
-    <string name="no_account_prompt">Awunayo i-akhawunti? </string>
+    <string name="no_account_prompt">Awunayo i-akhawunti?\u0020</string>
     <string name="create_account_link">Dala i-akhawunti</string>
-    <string name="have_account_prompt">Usunayo i-akhawunti? </string>
+    <string name="have_account_prompt">Usunayo i-akhawunti?\u0020</string>
     <string name="login_link">Ngena</string>
     <string name="forgot_password">Ukhohlwe iphasiwedi?</string>
     <string name="reset_password_title">Setha kabusha iphasiwedi</string>

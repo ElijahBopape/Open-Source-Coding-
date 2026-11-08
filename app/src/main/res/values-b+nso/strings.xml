@@ -12,9 +12,9 @@
     <string name="login_button">Tsena</string>
     <string name="register_button">Hlama akhaonte</string>
     <string name="google_sign_in_button">Tšwela pele ka Google</string>
-    <string name="no_account_prompt">Ga o na akhaonte? </string>
+    <string name="no_account_prompt">Ga o na akhaonte?\u0020</string>
     <string name="create_account_link">Hlama akhaonte</string>
-    <string name="have_account_prompt">O šetše o na le akhaonte? </string>
+    <string name="have_account_prompt">O šetše o na le akhaonte?\u0020</string>
     <string name="login_link">Tsena</string>
     <string name="forgot_password">O lebetše lentšu la sephiri?</string>
     <string name="reset_password_title">Fetola lentšu la sephiri</string>

@@ -79,13 +79,11 @@ Student Assistant does this. **Modules** are the foundation, and tasks, classes,
 
 ## 3. Screenshots
 
-| Login (SSO) | Dashboard | Tasks (offline) | Exams |
-| --- | --- | --- | --- |
-| ![](playstore/screenshots/01-login.png) | ![](playstore/screenshots/02-dashboard.png) | ![](playstore/screenshots/03-tasks.png) | ![](playstore/screenshots/04-exams.png) |
+Captured on a Pixel 7 emulator (Android 15). Every other screen (dashboard, tasks, exams, study planner, settings and offline mode) is shown in the demonstration video.
 
-| Study planner | Settings | Sepedi | isiZulu |
+| Login (email + Google SSO) | Register (validated form) | Sepedi | isiZulu |
 | --- | --- | --- | --- |
-| ![](playstore/screenshots/05-study-planner.png) | ![](playstore/screenshots/06-settings.png) | ![](playstore/screenshots/07-sepedi.png) | ![](playstore/screenshots/08-isizulu.png) |
+| ![Login](playstore/screenshots/01-login.png) | ![Register](playstore/screenshots/02-register.png) | ![Sepedi](playstore/screenshots/03-sepedi.png) | ![isiZulu](playstore/screenshots/04-isizulu.png) |
 
 ## 4. Design considerations
 
