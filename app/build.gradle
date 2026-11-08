@@ -51,7 +51,7 @@ android {
         // Cloudinary blob storage for profile photos. An *unsigned* upload preset
         // is designed to be used from client apps, so these are not secrets.
         // https://cloudinary.com/documentation/upload_images#unsigned_upload (Cloudinary, 2026)
-        buildConfigField "String", "CLOUDINARY_CLOUD_NAME", "\"${localProperties.getProperty('cloudinary.cloudName', 'dsbopape')}\""
+        buildConfigField "String", "CLOUDINARY_CLOUD_NAME", "\"${localProperties.getProperty('cloudinary.cloudName', 'fc0slijz')}\""
         buildConfigField "String", "CLOUDINARY_UPLOAD_PRESET", "\"${localProperties.getProperty('cloudinary.uploadPreset', 'student_assistant_unsigned')}\""
 
         vectorDrawables.useSupportLibrary = true
