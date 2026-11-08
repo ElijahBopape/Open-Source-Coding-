@@ -1,46 +1,23 @@
 # AI Usage Disclosure
 
-**Student:** ME Bopape (ST10445847) **Module:** OPSC6312 **Submission:** Part 2 - App Prototype
+**Student:** ME Bopape (ST10445847) · **Module:** OPSC6312 · **Submission:** Final PoE (Part 3)
 
-I used Claude (Anthropic's Claude Code) as an AI coding assistant throughout Part 2,
-building directly on the app design, requirements and feature list I set out in my
-own Part 1 Research Report and Planning and Design document. Below is a summary of
-how it was used.
+**Tool used:** Claude (Anthropic, *Claude Code*, model Claude Opus 5.5), used as a coding assistant in my own repository.
 
-**Code generation.** I asked Claude to scaffold the Android project (Kotlin, Gradle
-build files, layouts and screen logic) and the companion REST API (Node.js/Express)
-based on the requirements I had already written in Part 1: register/login with
-encrypted passwords, a settings screen, a custom REST API connected to a database,
-and my three chosen features (Module management, Task management with priority, and
-Timetable management). Claude wrote the initial version of most files, including the
-data models, the Retrofit networking layer, the Firebase Authentication screens, the
-five main fragments, and the Express routes/JSON data store. I reviewed this code,
-adjusted the feature scope and priority-sorting logic to match my own design (the
-"Academic Priority System" described in my Planning and Design document), and it is
-what appears in this repository.
+**How it was used**
 
-**Debugging.** While getting the project to actually compile, Claude helped diagnose
-two build failures: (1) a plugin conflict when Android Gradle Plugin 9's built-in
-Kotlin support was combined with an explicit Kotlin plugin declaration, which was
-resolved by moving to a more conservative AGP 8.6.1 / Kotlin 1.9.24 toolchain; and (2)
-a resource-linking failure ("attribute res-auto:... not found") that turned out to be
-a malformed XML namespace URI (`.../apk/res/res-auto` instead of `.../apk/res-auto`)
-copied into every layout file - fixed with a project-wide find-and-replace, after
-which the app built and its unit tests passed. It also helped debug an `npm install`
-failure caused by a native-compiled SQLite dependency lacking a Python toolchain,
-which led to switching the backend to a dependency-free JSON file store instead.
+- **Code generation.** I gave Claude the PoE brief, my Part 1 Planning and Design document and my Part 2 code. I asked it to implement the Part 3 requirements and my two remaining design features (Examinations, design 3.6; Study Planner, design 3.8/3.12).
+  - It wrote most of the new Kotlin: Room entities/DAOs, the `TaskSyncEngine`/`SyncWorker` offline sync, FCM services, Credential Manager Google sign-in, and the exams/study planner screens.
+  - It also wrote the Firestore/FCM changes to the Node.js API.
+  - Each commit message describes what was added.
+- **Design decisions.** I chose which features to build and the scope of offline mode (tasks fully offline, other screens cached). I also chose Cloudinary for blob storage, to avoid a paid Firebase plan. Claude proposed the "local pending change wins" sync rule and the exam-proximity priority boost. I reviewed and accepted both because they match my design's Academic Priority System.
+- **Translations.** The Sepedi and isiZulu strings were drafted by Claude. They should be checked by first-language speakers, and any corrections are made directly in `values-b+nso/strings.xml` and `values-zu/strings.xml`.
+- **Assets.** The launcher icon, Play Store icon and feature graphic were generated from code by Claude, using the logo I described in Part 1 (graduation cap + tick, blue and white). The UI icons are Google Material Icons (Apache 2.0).
+- **Documentation.** Claude drafted the README, these release notes, the store listing, the privacy policy and my video script. I edited them and recorded the video myself.
+- **Debugging and tests.** Claude wrote the unit tests (sync merge, study planner, exam priority, dates/languages) and the API tests, and ran the builds and tests to confirm they pass.
 
-**Documentation.** Claude drafted the README, this AI usage disclosure, and code
-comments explaining non-obvious decisions (e.g. why Google Sign-In is stubbed out,
-why the backend doesn't use a native database driver). I reviewed and edited this
-documentation for accuracy before submission.
+**Configuration.** I created the accounts and entered the secret keys myself (Render, Cloudinary, Firebase service-account key). Claude enabled the Firebase sign-in providers, added the SHA-1 fingerprints and created the Firestore database in my browser, with my permission.
 
-**What I did not use AI for.** The underlying app idea, its feature list, the UI
-mockups, the REST API design, the database entity model and the project plan were all
-defined by me in Part 1, before any AI assistance was used for Part 2. AI was not used
-to fabricate research, screenshots or citations for the Part 1 submission.
+**How it is cited.** Code that follows official documentation includes a reference comment (e.g. Android Developers, Firebase, Retrofit, Cloudinary). This file is the citation for AI assistance overall. Commits made with AI assistance carry a `Co-Authored-By: Claude` trailer.
 
-**Verification.** I ran the Android build (`./gradlew assembleDebug`), the unit tests
-(`./gradlew testDebugUnitTest`) and the REST API locally against real HTTP requests
-myself to confirm the generated code actually works before including it in this
-submission, rather than assuming it was correct.
+**Verification.** I ran the app on an Android emulator and checked every feature shown in my demonstration video against the live Render API and Firestore console.
