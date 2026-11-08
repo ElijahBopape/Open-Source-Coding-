@@ -9,6 +9,7 @@ services:
     name: student-assistant-api
     runtime: node
     plan: free
+    region: frankfurt
     rootDir: backend
     buildCommand: npm ci
     startCommand: npm start
