@@ -28,7 +28,7 @@ if (localPropertiesFile.exists()) {
 }
 
 // The live REST API on Render (see /backend and README).
-def hostedApiUrl = "https://student-assistant-api-kxd2.onrender.com/"
+def hostedApiUrl = "https://student-assistant-api-1dix.onrender.com/"
 def debugApiUrl = localProperties.getProperty('api.baseUrl', hostedApiUrl)
 
 android {

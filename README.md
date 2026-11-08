@@ -17,7 +17,7 @@
 | | |
 | --- | --- |
 | 🎬 **Demonstration video** | **[YouTube link - ADD HERE]** |
-| 🌐 **Live REST API** | **[Render URL - ADD HERE]** (open it in a browser to see the health check) |
+| 🌐 **Live REST API** | **<https://student-assistant-api-1dix.onrender.com>** (open it to see the health check; the free tier sleeps, so the first request takes about 50 s) |
 | 📦 **Signed release / APK** | **[GitHub Release link - ADD HERE]** |
 | 📝 **Release notes** | [RELEASE_NOTES.md](RELEASE_NOTES.md) |
 | 🤖 **AI usage write-up** | [AI_USAGE.md](AI_USAGE.md) |
@@ -138,7 +138,7 @@ The app logs throughout with `android.util.Log` (filter Logcat by `TaskSyncEngin
 
 ## 6. REST API and NoSQL database
 
-Base URL: **[Render URL - ADD HERE]**. All `/api` routes need `Authorization: Bearer <Firebase ID token>`.
+Base URL: **https://student-assistant-api-1dix.onrender.com**. All `/api` routes need `Authorization: Bearer <Firebase ID token>`.
 
 | Method | Endpoint | Purpose |
 | --- | --- | --- |
