@@ -18,6 +18,6 @@
 
 **Configuration.** I created the accounts and entered the secret keys myself (Render, Cloudinary, Firebase service-account key). Claude enabled the Firebase sign-in providers, added the SHA-1 fingerprints and created the Firestore database in my browser, with my permission.
 
-**How it is cited.** Code that follows official documentation includes a reference comment (e.g. Android Developers, Firebase, Retrofit, Cloudinary). This file is the citation for AI assistance overall. Commits made with AI assistance carry a `Co-Authored-By: Claude` trailer.
+**How it is cited.** Code that follows official documentation includes a reference comment (e.g. Android Developers, Firebase, Retrofit, Cloudinary). This file is the citation for AI assistance overall.
 
 **Verification.** I ran the app on an Android emulator and checked every feature shown in my demonstration video against the live Render API and Firestore console.

@@ -18,7 +18,7 @@
 | --- | --- |
 | 🎬 **Demonstration video** | **[YouTube link - ADD HERE]** |
 | 🌐 **Live REST API** | **<https://student-assistant-api-1dix.onrender.com>** (open it to see the health check; the free tier sleeps, so the first request takes about 50 s) |
-| 📦 **Signed release / APK** | **[GitHub Release link - ADD HERE]** |
+| 📦 **Signed release / APK** | **[v3.0.0 release (signed APK)](https://github.com/ElijahBopape/Open-Source-Coding-/releases/tag/v3.0.0-final-poe)** |
 | 📝 **Release notes** | [RELEASE_NOTES.md](RELEASE_NOTES.md) |
 | 🤖 **AI usage write-up** | [AI_USAGE.md](AI_USAGE.md) |
 | 🏷️ **Final PoE tag** | `v3.0.0-final-poe` |
