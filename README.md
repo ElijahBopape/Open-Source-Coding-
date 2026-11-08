@@ -16,7 +16,7 @@
 
 | | |
 | --- | --- |
-| 🎬 **Demonstration video** | **[YouTube link - ADD HERE]** |
+| 🎬 **Demonstration video** | **[https://youtu.be/iXGcTgkNHGk](https://youtu.be/iXGcTgkNHGk)** |
 | 🌐 **Live REST API** | **<https://student-assistant-api-1dix.onrender.com>** (open it to see the health check; the free tier sleeps, so the first request takes about 50 s) |
 | 📦 **Signed release / APK** | **[v3.0.0 release (signed APK)](https://github.com/ElijahBopape/Open-Source-Coding-/releases/tag/v3.0.0-final-poe)** |
 | 📝 **Release notes** | [RELEASE_NOTES.md](RELEASE_NOTES.md) |
@@ -79,11 +79,19 @@ Student Assistant does this. **Modules** are the foundation, and tasks, classes,
 
 ## 3. Screenshots
 
-Captured on a Pixel 7 emulator (Android 15). Every other screen (dashboard, tasks, exams, study planner, settings and offline mode) is shown in the demonstration video.
+Captured on a Pixel 7 emulator (Android 15) running the final build against the live API.
 
-| Login (email + Google SSO) | Register (validated form) | Sepedi | isiZulu |
+| Login (email + Google SSO) | Dashboard | Tasks (exam-aware priority) | Exams (average mark) |
 | --- | --- | --- | --- |
-| ![Login](playstore/screenshots/01-login.png) | ![Register](playstore/screenshots/02-register.png) | ![Sepedi](playstore/screenshots/03-sepedi.png) | ![isiZulu](playstore/screenshots/04-isizulu.png) |
+| ![Login](playstore/screenshots/01-login.png) | ![Dashboard](playstore/screenshots/02-dashboard.png) | ![Tasks](playstore/screenshots/03-tasks.png) | ![Exams](playstore/screenshots/04-exams.png) |
+
+| Study planner | Settings | Sepedi | isiZulu |
+| --- | --- | --- | --- |
+| ![Study planner](playstore/screenshots/05-study-planner.png) | ![Settings](playstore/screenshots/06-settings.png) | ![Sepedi](playstore/screenshots/07-sepedi.png) | ![isiZulu](playstore/screenshots/08-isizulu.png) |
+
+| Register (validated form) | Offline mode | Smart plan | Dark theme |
+| --- | --- | --- | --- |
+| ![Register](playstore/screenshots/09-register.png) | ![Offline](playstore/screenshots/10-offline.png) | ![Smart plan](playstore/screenshots/11-smart-plan.png) | ![Dark theme](playstore/screenshots/12-dark-theme.png) |
 
 ## 4. Design considerations
 

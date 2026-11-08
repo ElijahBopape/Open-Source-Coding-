@@ -27,14 +27,24 @@ class NetworkMonitor(context: Context) {
     val isOnline: StateFlow<Boolean> = _isOnline.asStateFlow()
 
     private val listeners = mutableListOf<() -> Unit>()
+    private val available = mutableSetOf<Network>()
 
     init {
         val request = NetworkRequest.Builder()
             .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
             .build()
+        // Track every network that has internet ourselves. Asking for the "active network"
+        // inside onLost is unreliable: it can still return the network that was just lost,
+        // so the app would think it is online after Wi-Fi and mobile data were switched off.
         connectivityManager.registerNetworkCallback(request, object : ConnectivityManager.NetworkCallback() {
-            override fun onAvailable(network: Network) = setOnline(true)
-            override fun onLost(network: Network) = setOnline(checkNow())
+            override fun onAvailable(network: Network) {
+                synchronized(available) { available += network }
+                setOnline(true)
+            }
+            override fun onLost(network: Network) {
+                val anyLeft = synchronized(available) { available -= network; available.isNotEmpty() }
+                setOnline(anyLeft)
+            }
             override fun onUnavailable() = setOnline(false)
         })
     }

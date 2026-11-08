@@ -30,4 +30,5 @@ Everything below was added or changed since the Part 2 prototype (v1.0).
 - **Input validation:** every form validates its fields (dates, times, durations 5–600 min, marks 0–100, lengths) on the device. The API validates them again.
 - **Android 15/16 ready:** targets API 36, with edge-to-edge layouts, the notification permission and a predictable back stack.
 - **Play Store readiness:** signed release build (R8-shrunk), version 3.0.0 (versionCode 3), store listing, privacy policy and screenshots.
+- **Offline banner fix:** the app now tracks each connected network itself, so the offline banner appears straight away when Wi-Fi and mobile data are switched off one after the other.
 - **Testing:** 23 JVM unit tests (sync merge rules, study planner, exam priority, dates and languages), 10 API tests and an Espresso UI test. Both suites run in GitHub Actions.
