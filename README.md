@@ -1,237 +1,228 @@
-# Student Assistant
+<p align="center">
+  <img src="playstore/icon-512.png" width="120" alt="Student Assistant icon" />
+</p>
 
-**OPSC6312 (Open Source Coding, Intermediate) — Portfolio of Evidence, Part 2: App Prototype**
-Student: Elijah Bopape (ST10445847)
-Repository: <https://github.com/ElijahBopape/Open-Source-Coding->
+<h1 align="center">Student Assistant</h1>
 
-![Android CI](https://github.com/ElijahBopape/Open-Source-Coding-/actions/workflows/android-ci.yml/badge.svg)
+<p align="center">
+  Modules, timetable, tasks, exams and a smart study planner - in one app.<br/>
+  <b>OPSC6312 Open Source Coding (Intermediate) · Portfolio of Evidence - Final submission (v3.0.0)</b><br/>
+  Elijah Bopape · ST10445847
+</p>
 
-## For the marker — quick start
+<p align="center">
+  <a href="https://github.com/ElijahBopape/Open-Source-Coding-/actions/workflows/android-ci.yml"><img src="https://github.com/ElijahBopape/Open-Source-Coding-/actions/workflows/android-ci.yml/badge.svg" alt="Android CI" /></a>
+</p>
 
-The Firebase config committed in this repo (`app/google-services.json`) is the
-**real** project config, not a placeholder, so the app builds and runs as-is —
-no Firebase account needed to mark this.
-
-1. Clone the repo and open the root folder in Android Studio (this repo root
-   *is* the Gradle project). Let it sync.
-2. **Start the REST API locally** (needed either way — see note below):
-   ```bash
-   cd backend
-   npm install
-   npm start
-   ```
-   Leave that terminal running. It listens on `http://localhost:3000`.
-3. Run the app on an **emulator** (not a physical device, unless you also
-   change the API URL — see below) via the green Run button in Android
-   Studio, or `./gradlew installDebug`.
-4. Register a new account, then use Modules / Tasks / Timetable / Settings as
-   normal.
-
-> **Why localhost:** the app is currently built to point at
-> `https://student-assistant-api.onrender.com/`, a Render deployment that
-> could not be confirmed live before this submission was finalised (time
-> constraints). Android emulators reach your machine's `localhost` via the
-> special address `10.0.2.2`, and `app/build.gradle`'s **debug** build type
-> already targets `http://10.0.2.2:3000/` for exactly this reason — so a
-> **debug** build run on the emulator will talk to the API you started in
-> step 2 with no further changes needed. A **release** build, or running on a
-> physical device, would need `API_BASE_URL` pointed at a REST API address
-> reachable from that device instead (a deployed URL, or your machine's LAN
-> IP with the phone on the same Wi-Fi).
-
-No demonstration video is included with this submission — I ran out of time
-to record and deploy the backend publicly before the deadline. Everything
-above has been built and run locally to confirm it works; see
-[`AI_USAGE.md`](AI_USAGE.md) for what AI assistance was used to get here.
-
-Student Assistant is an academic organiser for tertiary students. It brings modules,
-a class timetable and prioritised assignments/tasks into one place, so a student can
-see what needs attention today without juggling a separate calendar app, task app and
-notes app. It was designed around the findings of the Part 1 research report, which
-compared MyStudyLife, Microsoft To Do and Todoist (see `docs/` in the Part 1
-submission) and identified an opportunity for a simpler, student-specific tool that
-connects modules, tasks and a timetable rather than treating them as unrelated lists.
-
-## Table of contents
-
-- [Purpose and design considerations](#purpose-and-design-considerations)
-- [Features implemented in this prototype](#features-implemented-in-this-prototype)
-- [Architecture](#architecture)
-- [Project structure](#project-structure)
-- [Setting up the Android app](#setting-up-the-android-app)
-- [Setting up the REST API](#setting-up-the-rest-api)
-- [Running the tests](#running-the-tests)
-- [GitHub Actions](#github-actions)
-- [Demonstration video](#demonstration-video)
-- [What's deferred to the Final PoE](#whats-deferred-to-the-final-poe)
-- [AI usage](#ai-usage)
-
-## Purpose and design considerations
-
-The app follows the requirements and design set out in the Part 1 Planning and Design
-document: a clean Material Design interface, a bottom navigation bar (Dashboard,
-Modules, Tasks, Timetable, Settings), and an "Academic Priority System" that surfaces
-the most urgent work first instead of a plain chronological list. Modules are the
-foundation entity - tasks and timetable entries both link back to a module - which
-mirrors how students actually think about their workload ("what's due for Programming
-2A") rather than a flat, unstructured to-do list.
-
-Design decisions that differ from the Part 1 document, and why:
-
-- **REST API technology**: the design document proposed a PHP + MySQL backend. This
-  prototype instead uses **Node.js + Express**, storing data in a small JSON file
-  store rather than a native SQL driver (see `backend/store.js`). This keeps `npm
-  install` dependency-free (no C++ build toolchain needed on any machine, including
-  free CI/hosting runners) while still satisfying the requirement of a REST API the
-  student created, connected to a database/storage mechanism, hosted online. The REST
-  contract (endpoints, JSON shapes) is unchanged from the design, so swapping in a
-  real relational database later (e.g. for the Final PoE) would not require any
-  Android-side changes.
-- **Google Sign-In (SSO)**, **offline mode with Room/SQLite sync**, **push
-  notifications** and **multi-language support** are explicitly marked "(PoE only)"
-  in the assessment brief. The UI already anticipates them (a "Continue with Google"
-  button, a language preference in Settings) but the underlying functionality is
-  intentionally deferred to the Final PoE, as permitted by the brief.
-
-## Features implemented in this prototype
-
-| Requirement (assessment rubric) | Where it lives |
+| | |
 | --- | --- |
-| Register/login with encrypted password | `ui/auth/LoginActivity.kt`, `RegisterActivity.kt` (Firebase Authentication - passwords are hashed by Firebase and never handled in plain text by this app) |
-| Settings the user can change | `ui/settings/SettingsFragment.kt` (language, notification and theme preferences, persisted with `SessionManager`) |
-| REST API created by the student, connected to storage, hosted online | `/backend` (Node.js + Express + JSON file store), consumed via Retrofit in `data/remote/` |
-| Feature 1 - Module management | `ui/modules/` |
-| Feature 2 - Task/assignment management with priority | `ui/tasks/`, `util/PriorityUtils.kt` |
-| Feature 3 - Timetable management | `ui/timetable/` |
+| 🎬 **Demonstration video** | **[YouTube link - ADD HERE]** |
+| 🌐 **Live REST API** | **[Render URL - ADD HERE]** (open it in a browser to see the health check) |
+| 📦 **Signed release / APK** | **[GitHub Release link - ADD HERE]** |
+| 📝 **Release notes** | [RELEASE_NOTES.md](RELEASE_NOTES.md) |
+| 🤖 **AI usage write-up** | [AI_USAGE.md](AI_USAGE.md) |
+| 🏷️ **Final PoE tag** | `v3.0.0-final-poe` |
 
-The app also has a Dashboard (`ui/dashboard/DashboardFragment.kt`) that ties the three
-features together: it shows the next class from the timetable and the highest
-priority pending tasks, computed by the same `PriorityUtils` logic used on the Tasks
-screen.
+![Feature graphic](playstore/feature-graphic-1024x500.png)
 
-## Architecture
+---
+
+## Contents
+1. [Purpose of the app](#1-purpose-of-the-app)
+2. [Features and where to find them](#2-features-and-where-to-find-them)
+3. [Screenshots](#3-screenshots)
+4. [Design considerations](#4-design-considerations)
+5. [Architecture](#5-architecture)
+6. [REST API and NoSQL database](#6-rest-api-and-nosql-database)
+7. [Running the project](#7-running-the-project)
+8. [Testing](#8-testing)
+9. [GitHub and GitHub Actions](#9-github-and-github-actions)
+10. [Play Store preparation](#10-play-store-preparation)
+11. [Release notes](#11-release-notes)
+12. [AI usage and references](#12-ai-usage-and-references)
+
+---
+
+## 1. Purpose of the app
+
+Tertiary students juggle a timetable, assignments, tests and exams across several modules. They usually do this with a generic calendar, a to-do list and notes that don't know about each other.
+
+My Part 1 research compared **MyStudyLife**, **Microsoft To Do** and **Todoist**. It found an opportunity for a simpler, student-specific tool that **connects modules, tasks, classes and exams**, and that **tells the student what to work on first**.
+
+Student Assistant does this. **Modules** are the foundation, and tasks, classes, exams and study sessions all link back to a module. The dashboard then answers one question: *"What needs my attention today?"*
+
+## 2. Features and where to find them
+
+### Required features (brief → implementation)
+
+| Requirement | How it's done | Code |
+| --- | --- | --- |
+| Register and log in, with an encrypted password | Firebase Authentication. Passwords are salted and hashed (scrypt) by Firebase and never stored by the app. Validation on every field, plus "Forgot password?" | `ui/auth/LoginActivity.kt`, `RegisterActivity.kt` |
+| **Single sign-on (SSO)** | "Continue with Google" through Android **Credential Manager**. The Google ID token is exchanged for a Firebase credential. | `ui/auth/GoogleSignInHelper.kt` |
+| Settings the user can change | Name, profile photo, language, push notifications, dark theme, sync now, test push, sign out. Saved on the device **and** in the user's Firestore profile. | `ui/settings/SettingsFragment.kt` |
+| REST API connected to a database, hosted online | Node.js + Express API on **Render**. It stores everything in **Cloud Firestore** (NoSQL) and verifies a Firebase ID token on every call. | `/backend` |
+| **Offline mode with sync** | Tasks are stored in **Room (SQLite)** first, and changes are queued as *pending*. A **WorkManager** job syncs them when the device is back online. Other screens are cached for offline reading. | `data/local/`, `data/sync/` |
+| **Real-time notifications** | **Firebase Cloud Messaging.** The API pushes when tasks or exams are added, plus daily deadline reminders. Local WorkManager reminders work offline. | `notifications/`, `backend/notify.js` |
+| **Multi-language** (≥ 2 SA languages) | English, **Sepedi** (`values-b+nso`) and **isiZulu** (`values-zu`). Switches instantly using per-app locales. | `util/LocaleHelper.kt`, `res/values-*` |
+| App icon and final image assets | Adaptive and themed launcher icon from the Part 1 logo, splash screen, Material icons, and a Play Store icon and feature graphic. | `res/mipmap-*`, `res/drawable/`, `playstore/` |
+| Blob storage | Profile photos are uploaded to **Cloudinary**, and the URL is saved in Firestore. | `data/repository/ProfileRepository.kt` |
+
+### User-defined features (from the Part 1 design)
+
+| # | Feature | Design section |
+| --- | --- | --- |
+| 1 | **Module management:** create, edit and delete modules (name, code, lecturer, venue) | 3.3 |
+| 2 | **Timetable:** weekly classes per day, with the next class shown on the dashboard | 3.4 |
+| 3 | ★ **Tasks + Academic Priority System:** sorted by completion, priority and due date. **Exam-aware:** tasks for a module with an exam within 7 days are raised one level. | 3.5, 3.12 |
+| 4 | ★ **Exams:** upcoming/past exams, countdown, marks and **average mark** (academic progress) | 3.6, 3.7 |
+| 5 | ★ **Study Planner:** sessions linked to exams or tasks, progress tracking, and **Smart plan**, which spreads revision evenly before a deadline | 3.8, 3.12 |
+
+## 3. Screenshots
+
+| Login (SSO) | Dashboard | Tasks (offline) | Exams |
+| --- | --- | --- | --- |
+| ![](playstore/screenshots/01-login.png) | ![](playstore/screenshots/02-dashboard.png) | ![](playstore/screenshots/03-tasks.png) | ![](playstore/screenshots/04-exams.png) |
+
+| Study planner | Settings | Sepedi | isiZulu |
+| --- | --- | --- | --- |
+| ![](playstore/screenshots/05-study-planner.png) | ![](playstore/screenshots/06-settings.png) | ![](playstore/screenshots/07-sepedi.png) | ![](playstore/screenshots/08-isizulu.png) |
+
+## 4. Design considerations
+
+- **Material Design, one consistent visual system.** There is one blue-and-white palette, with a matching dark palette, and the same card, chip and form styles on every screen. Every colour is a named resource, so the dark theme changes the whole app consistently.
+- **Navigation.** A bottom bar holds the five most-used destinations (Home, Tasks, Timetable, Exams, Settings). Modules and the Study Planner are one tap away on the dashboard. This keeps common actions to as few taps as possible, which was a design principle in Part 1.
+- **Handling bad input without crashing.** Every form validates locally (required fields, valid dates and times, a 5–600 minute duration, a 0–100 mark, maximum lengths). The API validates again and returns `400`. All network calls go through `safeApiCall`, so a server or network error becomes a translated message instead of a crash.
+- **Offline-first where it matters most.** Tasks are what students update most, often on campus with poor signal, so they work fully offline. Reference data (modules, timetable, exams, sessions) is cached for reading. A banner always shows when the user is offline and how many changes are waiting.
+- **Conflict rule.** If a task was changed on the phone while offline, the phone's version wins at the next sync. The student's latest intent is never silently overwritten.
+- **Security.** Each API request carries a short-lived Firebase **ID token**, which the server verifies. This replaces Part 2's trusted header. Release builds are HTTPS-only, and secrets (the service-account key, the upload keystore) are never committed.
+- **Localisation done properly.** There are no hard-coded strings. Plurals are handled per language, and day and month names are translated (Java has no Sepedi date data). Languages are listed in their own names.
+- **Changes from the Part 1 design.** The design proposed PHP + MySQL. The final build uses **Node.js + Cloud Firestore**, which meets the Part 3 learning outcome of reading and writing a NoSQL database, and runs on free hosting. The REST contract is unchanged.
+
+## 5. Architecture
 
 ```
-Android app (Kotlin)  --Retrofit/OkHttp-->  REST API (Node.js/Express)  -->  JSON file store
-        |
-        +-- Firebase Authentication (register/login, password hashing)
+┌──────────────────────── Android app (Kotlin) ────────────────────────┐
+│ UI: Activities + Fragments (View Binding, Material)                   │
+│   ↓                                                                    │
+│ Repositories ── Room (SQLite): tasks (offline-first) + API cache       │
+│   │                ↑ TaskSyncEngine  ← SyncWorker (WorkManager)       │
+│   ↓ Retrofit + OkHttp (AuthHeaderInterceptor: Firebase ID token)       │
+└───┼──────────────────────────────────────────────────────────────────┘
+    │ HTTPS                           ▲ FCM push
+    ▼                                 │
+┌──── REST API: Node.js/Express on Render ────┐      ┌── Firebase ─────────────┐
+│ verifies ID token → per-user CRUD            │────▶ │ Authentication (users)  │
+│ notify.js → FCM                              │────▶ │ Cloud Firestore (NoSQL) │
+└──────────────────────────────────────────────┘      │ Cloud Messaging         │
+Profile photos ──▶ Cloudinary (blob storage)           └─────────────────────────┘
 ```
 
-- **UI**: one `MainActivity` hosting five `Fragment`s via a `BottomNavigationView`,
-  each using View Binding (no findViewById).
-- **Networking**: a single Retrofit client (`data/remote/RetrofitClient.kt`) attaches
-  the signed-in user's Firebase UID to every request via an `OkHttp` interceptor
-  (`AuthHeaderInterceptor`), so the API can scope data per user without its own login
-  step. Repository classes (`data/repository/`) wrap each Retrofit call in a
-  success/failure result so the UI never crashes on a network error.
-- **REST API**: `backend/server.js` exposes `/api/modules`, `/api/tasks` and
-  `/api/timetable` (GET/POST/PUT/DELETE), guarded by a required `X-User-Id` header.
-- **Academic Priority System**: `util/PriorityUtils.kt` is a small, dependency-free
-  Kotlin object that sorts tasks by completion state, then priority, then due date -
-  covered by JVM unit tests in `app/src/test`.
-
-## Project structure
+Project layout:
 
 ```
-.
-├── app/                        # Android app module (Kotlin)
-│   ├── src/main/java/com/bopape/studentassistant/
-│   │   ├── data/                # models, Retrofit service, repositories
-│   │   ├── ui/                  # auth, dashboard, modules, tasks, timetable, settings
-│   │   └── util/                # PriorityUtils, DateUtils, SessionManager, ApiResult
-│   ├── src/test/                # JVM unit tests (PriorityUtilsTest)
-│   └── src/androidTest/         # Espresso instrumented test (LoginActivityTest)
-├── backend/                     # REST API (Node.js + Express)
-│   ├── server.js, store.js, routes/
-│   └── render.yaml              # Render.com deploy blueprint
-└── .github/workflows/           # GitHub Actions CI (build + unit tests)
+app/src/main/java/com/bopape/studentassistant/
+├── data/
+│   ├── local/      Room database, entities, DAOs (offline mode)
+│   ├── sync/       TaskSyncEngine, TaskMerge, SyncWorker, SyncScheduler
+│   ├── remote/     Retrofit ApiService + auth interceptor
+│   ├── repository/ one repository per feature (+ Cloudinary upload)
+│   └── model/      Module, Task, TimetableEntry, Exam, StudySession, UserProfile
+├── notifications/  FCM service, push registration, daily ReminderWorker
+├── ui/             auth, dashboard, modules, tasks, timetable, exams, study, settings, main
+└── util/           PriorityUtils, StudyPlanner, DateUtils, LocaleHelper, NetworkMonitor
+backend/            Express API (server.js, store.js, notify.js, routes/, test/)
+playstore/          icon, feature graphic, screenshots, store listing, privacy policy
 ```
 
-## Setting up the Android app
+The app logs throughout with `android.util.Log` (filter Logcat by `TaskSyncEngine`, `StudentMessaging`, `GoogleSignInHelper` and others). The API logs every request and push to Render's *Logs* tab.
 
-1. **Firebase project**: create a free project at
-   [console.firebase.google.com](https://console.firebase.google.com), add an Android
-   app with package name `com.bopape.studentassistant`, enable **Authentication ->
-   Sign-in method -> Email/Password**, then download `google-services.json` and
-   replace the placeholder file at `app/google-services.json` with it.
-2. **API URL**: `app/build.gradle` sets `API_BASE_URL` to the deployed backend (see
-   below). Update it if you deploy your own copy of the backend.
-3. Open the project root in Android Studio (this repository root *is* the Gradle
-   project - there is no separate subfolder to open), let Gradle sync, and run on an
-   emulator or device.
-4. Command line: `./gradlew assembleDebug` produces
-   `app/build/outputs/apk/debug/app-debug.apk`.
+## 6. REST API and NoSQL database
 
-## Setting up the REST API
+Base URL: **[Render URL - ADD HERE]**. All `/api` routes need `Authorization: Bearer <Firebase ID token>`.
 
-The backend lives in `/backend` and has no native dependencies, so `npm install`
-works the same on Windows, macOS, Linux and any CI/hosting runner.
+| Method | Endpoint | Purpose |
+| --- | --- | --- |
+| GET | `/` | Health check (shows database = `firestore`) |
+| GET/POST/PUT/DELETE | `/api/modules[/:id]` | Modules |
+| GET/POST/PUT/DELETE | `/api/tasks[/:id]` | Tasks (POST sends a push) |
+| GET/POST/PUT/DELETE | `/api/timetable[/:id]` | Timetable entries |
+| GET/POST/PUT/DELETE | `/api/exams[/:id]` | Exams (POST sends a push) |
+| GET/POST/PUT/DELETE | `/api/study-sessions[/:id]` | Study sessions |
+| GET/PUT | `/api/profile` | Name, language, theme, notifications, photo URL |
+| POST/DELETE | `/api/devices[/:token]` | Register or unregister an FCM token |
+| POST | `/api/notifications/test` · `/reminders` | Send a test push or due-soon reminders |
 
-**Run it locally:**
+**Firestore layout.** There are top-level collections `modules`, `tasks`, `timetable`, `exams`, `studySessions` and `devices`. Each document holds `userId` (the Firebase UID), the record fields, and `createdAt`/`updatedAt`. Each user's profile and settings are in `users/{uid}`. `counters/{collection}` allocates ids inside a transaction.
+
+## 7. Running the project
+
+**For the marker:** clone the repo, open the root folder in Android Studio and press **Run**. The committed `google-services.json` is the real Firebase config, and the app already points at the live API, so nothing else needs setting up. Use a device or emulator image **with Google Play** so that Google Sign-In and push notifications work.
 
 ```bash
-cd backend
-npm install
-npm start
-# API now listening on http://localhost:3000
+./gradlew assembleDebug          # debug APK
+./gradlew bundleRelease          # Play Store bundle (signed if keystore.properties exists)
 ```
 
-**Deploy it for free on [Render](https://render.com):**
-
-1. Push this repository to GitHub (already done if you're reading this on GitHub).
-2. On Render, choose **New -> Blueprint**, point it at this repository - it will read
-   `backend/render.yaml` and configure the service automatically.
-   (Or manually: New -> Web Service, root directory `backend`, build command `npm
-   install`, start command `npm start`.)
-3. Copy the resulting `https://<your-service>.onrender.com` URL into
-   `API_BASE_URL` in `app/build.gradle`.
-
-Every request to `/api/*` must include an `X-User-Id` header (the Android app adds
-this automatically from the signed-in Firebase user); requests without it receive
-`401 Unauthorized`.
-
-> **Note on persistence**: Render's free tier does not guarantee the filesystem
-> survives a redeploy. This is fine for demonstrating the prototype (data persists
-> for the lifetime of the running service) but for the Final PoE this can be swapped
-> for a hosted database (e.g. Render's free PostgreSQL, or Firebase Firestore)
-> without changing the Android app's REST contract.
-
-## Running the tests
+**Optional: run the API locally.**
 
 ```bash
-./gradlew testDebugUnitTest        # JVM unit tests (PriorityUtils - the Academic Priority System)
-./gradlew connectedAndroidTest     # Instrumented tests (needs an emulator/device)
+cd backend && npm install && npm start      # http://localhost:3000, uses a local JSON store
+# then add to local.properties:  api.baseUrl=http://10.0.2.2:3000/
 ```
 
-`PriorityUtilsTest` verifies the sorting rules behind the Academic Priority System
-(high priority first, soonest due date first, completed tasks last).
-`LoginActivityTest` confirms the login screen validates an empty form instead of
-crashing, per the "handle invalid inputs without crashing" requirement.
+To use Firestore locally, set `GOOGLE_APPLICATION_CREDENTIALS` to a service-account file. To deploy, use Render → **New → Blueprint** on this repo (it reads `backend/render.yaml`), and set `FIREBASE_SERVICE_ACCOUNT` to the service-account JSON.
 
-## GitHub Actions
+## 8. Testing
 
-`.github/workflows/android-ci.yml` runs on every push/PR to `main`: it sets up JDK 17,
-runs the unit test suite, then builds the debug APK, uploading both the APK and the
-test report as workflow artifacts. This follows the pattern from the guides linked in
-the assessment brief (automated-build-android-app-with-github-action, and
-IMAD5112/Github-actions' `build.yml`).
+| Suite | Command | What it covers |
+| --- | --- | --- |
+| Android unit tests (23) | `./gradlew testDebugUnitTest` | Academic Priority System and exam boost, offline-sync merge and conflict rules, Smart plan scheduling, progress and average mark, translated dates, language mapping |
+| API tests (10) | `cd backend && npm test` | Auth required, CRUD round trip, input validation, user isolation, exams and marks, study sessions, profile/language, device registration, reminder rules |
+| UI test | `./gradlew connectedAndroidTest` | The login screen rejects an empty form without crashing |
 
-## Demonstration video
+## 9. GitHub and GitHub Actions
 
-[Video link - to be added]
+- The code is committed in small, described commits, one per feature (`git log`). There are no zip uploads.
+- `.github/workflows/android-ci.yml` runs on every push and pull request. It has two jobs:
+  1. **API tests:** Node 20, `npm ci && npm test`.
+  2. **Android:** JDK 17, unit tests, the debug APK and the R8 release bundle. The APK and test report are uploaded as artifacts.
+- The final commit is tagged **`v3.0.0-final-poe`**.
 
-## What's deferred to the Final PoE
+## 10. Play Store preparation
 
-Per the assessment brief, the following are explicitly "(PoE only)" and are designed
-for but not yet implemented:
+- `targetSdk 36`, `versionCode 3`, `versionName 3.0.0`, with R8 shrinking and resource shrinking.
+- **Signed with an upload key.** The key is stored locally in `keystore.properties` and the `.jks` file, which are git-ignored. Its SHA-1 is registered in Firebase.
+- Store graphics: [icon 512×512](playstore/icon-512.png), [feature graphic 1024×500](playstore/feature-graphic-1024x500.png) and [phone screenshots](playstore/screenshots).
+- [Store listing text, content rating and data-safety answers](playstore/STORE_LISTING.md), plus the [privacy policy](playstore/PRIVACY_POLICY.md).
+- I don't have a Google Play developer account, so the bundle was not uploaded to the Play Console (the brief marks this "if applicable"). Everything needed to upload it is in this repository.
 
-- Single sign-on via Google Sign-In (button present, wiring deferred)
-- Offline mode with Room/SQLite and background sync
-- Real-time push notifications (Firebase Cloud Messaging)
-- Multi-language support for Sepedi and isiZulu (the language preference is already
-  stored in Settings; translated string resources are the remaining work)
+## 11. Release notes
 
-## AI usage
+See **[RELEASE_NOTES.md](RELEASE_NOTES.md)** for every update since the Part 2 prototype. In short, v3.0.0 adds:
+- Google SSO
+- offline mode with sync
+- FCM push notifications
+- Sepedi and isiZulu
+- ★ Exams with marks
+- ★ the Study Planner with Smart plan
+- ★ the exam-aware priority system
+- Cloud Firestore storage, ID-token security, Cloudinary photos, and Play Store readiness.
 
-See [`AI_USAGE.md`](AI_USAGE.md) for a disclosure of how AI tools were used while
-completing this submission.
+## 12. AI usage and references
+
+AI assistance is disclosed in **[AI_USAGE.md](AI_USAGE.md)**.
+
+References:
+- Android Developers (2026) *Save data in a local database using Room.* Available at: https://developer.android.com/training/data-storage/room
+- Android Developers (2026) *Schedule tasks with WorkManager.* Available at: https://developer.android.com/develop/background-work/background-tasks/persistent/getting-started
+- Android Developers (2026) *Authenticate users with Sign in with Google.* Available at: https://developer.android.com/identity/sign-in/credential-manager-siwg
+- Android Developers (2026) *Per-app language preferences.* Available at: https://developer.android.com/guide/topics/resources/app-languages
+- Android Developers (2026) *Sign your app.* Available at: https://developer.android.com/studio/publish/app-signing
+- Google (2026) *Firebase Cloud Messaging.* Available at: https://firebase.google.com/docs/cloud-messaging
+- Google (2026) *Cloud Firestore: add data / transactions.* Available at: https://firebase.google.com/docs/firestore
+- Google (2026) *Verify ID tokens.* Available at: https://firebase.google.com/docs/auth/admin/verify-id-tokens
+- Cloudinary (2026) *Upload API - unsigned upload.* Available at: https://cloudinary.com/documentation/image_upload_api_reference
+- Square (2026) *Retrofit.* Available at: https://square.github.io/retrofit/
+- Render (2026) *Blueprint specification.* Available at: https://render.com/docs/blueprint-spec
+- Google (2026) *Material Icons* (Apache 2.0). Available at: https://fonts.google.com/icons
+- The Independent Institute of Education (2026) *OPSC6312 Portfolio of Evidence.*

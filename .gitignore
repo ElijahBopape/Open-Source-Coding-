@@ -35,3 +35,6 @@ Thumbs.db
 keystore.properties
 *.jks
 *.keystore
+
+### Personal notes (not part of the submission) ###
+VIDEO_SCRIPT.md
